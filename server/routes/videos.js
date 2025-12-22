@@ -4,6 +4,7 @@ const result = require('../utils/result')
 
 const router = express.Router()
 
+
 router.get('/all_videos', (req, res) => {
     const course_id = req.body
     const sql = `SELECT * FROM videos WHERE course_id = ?`
@@ -22,7 +23,7 @@ router.post('/add', (req, res) => {
 
 })
 
-//request parameter
+//request parameter(write parameters in the URL)
 router.put('/update/:video_id', (req, res) => {
     const video_id = req.params.video_id
     const {course_id, title, youtube_url, description} = req.body
