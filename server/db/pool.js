@@ -4,7 +4,7 @@ const pool = mysql2.createPool({
     host : 'localhost',
     user : 'root',
     password : 'manager',
-    database : 'mern_project_db'
+    database : 'mern_project'
 
 })
 
