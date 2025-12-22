@@ -6,6 +6,8 @@ const pool = mysql2.createPool({
     password : 'Anu@123',
     database : 'project'
 
+ 
+
 })
 
 module.exports = pool ;
