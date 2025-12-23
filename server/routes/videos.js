@@ -1,6 +1,7 @@
 const express = require('express')
 const pool = require('../db/pool')
 const result = require('../utils/result')
+const { checkAuthorization } = require('../utils/auth')
 
 const router = express.Router()
 
@@ -14,7 +15,7 @@ router.get('/all_videos', (req, res) => {
     })
 })
 
-router.post('/add', (req, res) => {
+router.post('/add', checkAuthorization, (req, res) => {
     const {course_id, title, youtube_url, description} = req.body
     const sql = `INSERT INTO videos (course_id, title, youtube_url, description) VALUES (?,?,?,?)`
     pool.query(sql , [course_id, title, youtube_url, description], (error , data) => {
@@ -24,7 +25,7 @@ router.post('/add', (req, res) => {
 })
 
 //request parameter(write parameters in the URL)
-router.put('/update/:video_id', (req, res) => {
+router.put('/update/:video_id', checkAuthorization, (req, res) => {
     const {video_id} = req.params
     const {course_id, title, youtube_url, description} = req.body
     const sql = `UPDATE videos SET course_id = ?, title = ?, youtube_url = ?, description =? WHERE video_id = ?`
@@ -34,7 +35,7 @@ router.put('/update/:video_id', (req, res) => {
 })
 
 //delete video on video_id
-router.delete('/delete/:video_id', (req, res) => {
+router.delete('/delete/:video_id', checkAuthorization, (req, res) => {
     const {video_id} = req.params
     const sql = `DELETE FROM videos WHERE video_id = ?`
     pool.query(sql , [video_id], (error, data) => {

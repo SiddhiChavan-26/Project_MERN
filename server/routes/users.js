@@ -1,8 +1,11 @@
 const express = require('express')
 const crypto = require('crypto-js')
+const jwt = require('jsonwebtoken')
 
+const config = require('../utils/config')
 const pool = require('../db/pool')
 const result = require('../utils/result')
+
 const router = express.Router()
 
 router.post('/signUp',(req,res) =>{
@@ -14,10 +17,10 @@ router.post('/signUp',(req,res) =>{
     })
 })
 router.post('/login',(req,res) => {
-    const{email,password,role} = req.body
+    const{email,password} = req.body
     const hashedPassword = crypto.SHA256(password).toString()
     const sql = `SELECT * FROM users WHERE email=? AND password = ? `
-    pool.query(sql,[email,hashedPassword,role],(error,data)=>{
+    pool.query(sql,[email,hashedPassword],(error,data)=>{
         if(error)
         {
             res.send(result.createResult(error))
@@ -25,7 +28,23 @@ router.post('/login',(req,res) => {
             {
                 res.send(result.createResult("incorrect email and password"))   
             }else{
-                res.send(result.createResult(null,data))
+                const user = data[0];
+                console.log("user", user);
+
+                // create the JWT token
+                // inside the payload store the data that needs to be encryted into the token
+                const payload = {
+                    email: user.email,
+                    role: user.role,
+                };
+                
+                const token = jwt.sign(payload, config.SECRET);
+                const userData = {
+                    name: user.name,
+                    mobile: user.mobile,
+                    token,
+                };
+                res.send(result.createResult(null, userData));
             } 
     })
 });
