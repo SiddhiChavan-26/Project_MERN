@@ -5,16 +5,6 @@ const pool = require("../db/pool")
 
 const router = express.Router()
 
-// //Register student to course
-// router.post("/register_to_course",(req,res)=>{
-//     const {reg_no,course_id,email,name,mobile_no } = req.body
-//     const sql ="INSERT INTO student(reg_no,course_id, email, name,mobile_no) VALUES(?,?,?,?,?)"
-//     pool.query(sql,[reg_no,course_id,email,name,mobile_no ],(error,data)=>{
-//         res.send(result.createResult(error,data))
-//     })
-
-// })
-
 // Register student to course
 router.post("/register_to_course", (req, res) => {
     const { course_id, email, name, mobile_no } = req.body;
