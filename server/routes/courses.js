@@ -1,6 +1,7 @@
 const express = require('express')
 const pool = require('../db/pool')
 const createResult = require('../utils/result')
+const { checkAuthorization } = require('../utils/auth')
 
 const router = express.Router()
 
@@ -13,7 +14,8 @@ router.get('/all-courses', (request, response) => {
   })
 })
 
-router.post('/add', (request, response) => {
+
+router.post('/add',checkAuthorization, (request, response) => {
   const {courseName,description,fees,startDate,endDate,videoExpireDays} = request.body
 
   const sql = `INSERT INTO courses(courseName, description, fees, startDate, endDate, videoExpireDays)
@@ -25,7 +27,8 @@ router.post('/add', (request, response) => {
   )
 })
 
-router.put('/update/:courseId', (request, response) => {
+
+router.put('/update/:courseId', checkAuthorization,(request, response) => {
   const { courseId } = request.params
   const {courseName,description,fees,startDate,endDate,videoExpireDays} = request.body
 
@@ -39,12 +42,15 @@ router.put('/update/:courseId', (request, response) => {
 })
 
 
-router.delete('/delete/:courseId', (request, response) => {
+router.delete('/delete/:courseId',checkAuthorization, (request, response) => {
   const { courseId } = request.params
   const sql = `DELETE FROM courses WHERE courseId=?`
   pool.query(sql, [courseId], (error, data) => {
     response.send(createResult(error, data))
   })
 })
+
+
+
 
 module.exports = router
