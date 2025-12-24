@@ -5,7 +5,6 @@ const { checkAuthorization } = require('../utils/auth')
 
 const router = express.Router()
 
-
 router.get('/all-courses', (request, response) => {
   const { startDate, endDate } = request.query
   const sql = `SELECT * FROM courses WHERE startDate >= ? AND endDate <= ?`
@@ -47,5 +46,7 @@ router.delete('/delete/:courseId',checkAuthorization, (request, response) => {
     response.send(createResult(error, data))
   })
 })
+
+
 
 module.exports = router
