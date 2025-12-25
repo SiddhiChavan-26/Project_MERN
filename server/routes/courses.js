@@ -14,7 +14,6 @@ router.get('/all-courses', (request, response) => {
   })
 })
 
-
 router.post('/add',checkAuthorization, (request, response) => {
   const {courseName,description,fees,startDate,endDate,videoExpireDays} = request.body
 
@@ -40,7 +39,6 @@ router.put('/update/:courseId', checkAuthorization,(request, response) => {
     }
   )
 })
-
 
 router.delete('/delete/:courseId',checkAuthorization, (request, response) => {
   const { courseId } = request.params
