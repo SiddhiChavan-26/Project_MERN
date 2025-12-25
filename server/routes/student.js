@@ -5,16 +5,6 @@ const pool = require("../db/pool")
 
 const router = express.Router()
 
-// //Register student to course
-// router.post("/register_to_course",(req,res)=>{
-//     const {reg_no,course_id,email,name,mobile_no } = req.body
-//     const sql ="INSERT INTO student(reg_no,course_id, email, name,mobile_no) VALUES(?,?,?,?,?)"
-//     pool.query(sql,[reg_no,course_id,email,name,mobile_no ],(error,data)=>{
-//         res.send(result.createResult(error,data))
-//     })
-
-// })
-
 // Register student to course
 router.post("/register_to_course", (req, res) => {
     const { course_id, email, name, mobile_no } = req.body;
@@ -29,14 +19,8 @@ router.post("/register_to_course", (req, res) => {
             return res.send(result.createResult("Student not found in user table"));
         }
         // Step 2: Register student to course
-        const insertSql = `
-            INSERT INTO students ( course_id, email, name, mobile_no)
-            VALUES (?, ?, ?, ?)
-        `;
-        pool.query(
-            insertSql,
-            [course_id, email, name, mobile_no],
-            (error, data) => {
+        const insertSql = `INSERT INTO students ( course_id, email, name, mobile_no) VALUES (?, ?, ?, ?)`;
+        pool.query(insertSql,[course_id, email, name, mobile_no],(error, data) => {
                 res.send(result.createResult(error, data));
             }
         );
