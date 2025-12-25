@@ -17,7 +17,7 @@ const router = express.Router()
 
 // Register student to course
 router.post("/register_to_course", (req, res) => {
-    const { reg_no, course_id, email, name, mobile_no } = req.body;
+    const { course_id, email, name, mobile_no } = req.body;
     // Step 1: Check student in user table
     const checkUserSql = "SELECT * FROM users WHERE email = ?";
     pool.query(checkUserSql, [email], (error, userData) => {
@@ -30,12 +30,12 @@ router.post("/register_to_course", (req, res) => {
         }
         // Step 2: Register student to course
         const insertSql = `
-            INSERT INTO student (reg_no, course_id, email, name, mobile_no)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO students ( course_id, email, name, mobile_no)
+            VALUES (?, ?, ?, ?)
         `;
         pool.query(
             insertSql,
-            [reg_no, course_id, email, name, mobile_no],
+            [course_id, email, name, mobile_no],
             (error, data) => {
                 res.send(result.createResult(error, data));
             }
@@ -47,7 +47,7 @@ router.post("/register_to_course", (req, res) => {
 //Get all registered courses of student
 router.get("/my_courses",(req,res)=>{
     const {name} =req.body
-    const sql="SELECT c.course_name FROM courses c INNER JOIN student s ON c.course_id = s.course_id WHERE name=?"
+    const sql="SELECT c.course_name FROM courses c INNER JOIN students s ON c.course_id = s.course_id WHERE name=?"
     pool.query(sql,[name],(error,data)=>{
         res.send(result.createResult(error,data))
     })
@@ -57,7 +57,7 @@ router.get("/my_courses",(req,res)=>{
 //get all registered courses of a student along with valid videos -
 router.get("/my-coursewith-videos",(req,res)=>{
     const {email} = req.body
-    const sql="SELECT c.course_name, v.youtube_url FROM courses c INNER JOIN videos v ON c.course_id = v.course_id INNER JOIN student s ON s.course_id= c.course_id WHERE email=? AND (start_date + video_expire_days) < CURDATE()"
+    const sql="SELECT c.course_name, v.youtube_url FROM courses c INNER JOIN videos v ON c.course_id = v.course_id INNER JOIN students s ON s.course_id= c.course_id WHERE email=? AND (start_date + video_expire_days) < CURDATE()"
     pool.query(sql,[email],(error,data)=>{
         res.send(result.createResult(error,data))
     })

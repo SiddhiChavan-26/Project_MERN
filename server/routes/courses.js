@@ -1,49 +1,48 @@
 const express = require('express')
 const pool = require('../db/pool')
 const createResult = require('../utils/result')
-
+const result = require('../utils/result')
 const router = express.Router()
-
+const {checkAuthorization} = require('../utils/auth')
 
 router.get('/all-courses', (request, response) => {
-  const { startDate, endDate } = request.query
-  const sql = `SELECT * FROM courses WHERE startDate >= ? AND endDate <= ?`
-  pool.query(sql, [startDate, endDate], (error, data) => {
-    response.send(createResult(error, data))
+  const { start_date, end_date } = request.body
+  const sql = `SELECT * FROM courses WHERE start_date >= ? AND end_date <= ?`
+  pool.query(sql, [start_date, end_date], (error, data) => {
+    response.send(result.createResult(error, data))
   })
 })
 
-router.post('/add', (request, response) => {
-  const {courseName,description,fees,startDate,endDate,videoExpireDays} = request.body
+router.post('/add', checkAuthorization, (request, response) => {
+  const {course_name,description,fees,start_date,end_date,video_expire_days} = request.body
 
-  const sql = `INSERT INTO courses(courseName, description, fees, startDate, endDate, videoExpireDays)
+  const sql = `INSERT INTO courses(course_name, description, fees, start_date, end_date, video_expire_days)
     VALUES (?, ?, ?, ?, ?, ?) `
-  pool.query(sql,[courseName, description, fees, startDate, endDate, videoExpireDays],
-    (error, data) => {
-      response.send(createResult(error, data))
-    }
-  )
-})
-
-router.put('/update/:courseId', (request, response) => {
-  const { courseId } = request.params
-  const {courseName,description,fees,startDate,endDate,videoExpireDays} = request.body
-
-  const sql = `UPDATE courses SET courseName=?, description=?, fees=?, startDate=?, endDate=?, videoExpireDays=?
-    WHERE courseId=? `
-    pool.query(sql,[courseName, description, fees, startDate, endDate, videoExpireDays, courseId],
-    (error, data) => {
-      response.send(createResult(error, data))
+  pool.query(sql,[course_name, description, fees, start_date, end_date, video_expire_days],(error, data) => {
+      response.send(result.createResult(error, data))
     }
   )
 })
 
 
-router.delete('/delete/:courseId', (request, response) => {
-  const { courseId } = request.params
-  const sql = `DELETE FROM courses WHERE courseId=?`
-  pool.query(sql, [courseId], (error, data) => {
-    response.send(createResult(error, data))
+router.put('/update/:course_id', checkAuthorization,(request, response) => {
+  const { course_id } = request.params
+  const {course_name,description,fees,start_date,end_date,video_expire_days} = request.body
+
+  const sql = `UPDATE courses SET course_name=?, description=?, fees=?, start_date=?, end_date=?, video_expire_days=?
+    WHERE course_id=? `
+    pool.query(sql,[course_name, description, fees, start_date, end_date, video_expire_days, course_id],(error, data) => {
+      response.send(result.createResult(error, data))
+    }
+  )
+})
+
+
+router.delete('/delete/:course_id', (request, response) => {
+  const { course_id } = request.params
+  const sql = `DELETE FROM courses WHERE course_id=?`
+  pool.query(sql, [course_id], (error, data) => {
+    response.send(result.createResult(error, data))
   })
 })
 
