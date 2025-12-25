@@ -19,14 +19,8 @@ router.post("/register_to_course", (req, res) => {
             return res.send(result.createResult("Student not found in user table"));
         }
         // Step 2: Register student to course
-        const insertSql = `
-            INSERT INTO students (course_id, email, name, mobile_no)
-            VALUES (?, ?, ?, ?)
-        `;
-        pool.query(
-            insertSql,
-            [ course_id, email, name, mobile_no],
-            (error, data) => {
+        const insertSql = `INSERT INTO students ( course_id, email, name, mobile_no) VALUES (?, ?, ?, ?)`;
+        pool.query(insertSql,[course_id, email, name, mobile_no],(error, data) => {
                 res.send(result.createResult(error, data));
             }
         );

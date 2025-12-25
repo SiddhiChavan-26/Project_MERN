@@ -9,6 +9,7 @@ const result = require('../utils/result')
 const router = express.Router()
 
 router.post('/signUp',(req,res) =>{
+    console.log("signup")
     const{email,password,role} = req.body
     const hashedPassword = crypto.SHA256(password).toString()
     const sql = "INSERT INTO users(email,password,role) VALUES(?,?,?)"
@@ -49,7 +50,7 @@ router.post('/login',(req,res) => {
     })
 });
 
-router.get('/course/all-active-courses',(req,res) => {
+router.get('/all-active-courses',(req,res) => {
    // const{course_name,DESCRIPTION,fees,start_date,end_date,video_expire_days} = req.body
     const sql = "SELECT * FROM courses WHERE end_date >= CURRENT_DATE"
     pool.query(sql,(error,data)=>{
