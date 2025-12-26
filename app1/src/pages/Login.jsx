@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router'
+import { toast } from 'react-toastify'
 
 
 function Login()
@@ -14,6 +15,27 @@ function Login()
         console.log("sign in button clicked")
         console.log(`email-${email}`)
         console.log(`password-${password}`)
+
+        if(email == '')
+            toast.warn("email must be entered")
+        else if(password == '')
+            toast.warn("password must be entered")
+        else {
+            const result = loginUser(email,password)
+            console.log(result)
+            if(result == 'success')
+            {
+                sessionStorage.setItem('token',result.data.token)
+                setLoginStatus(true)
+                navigate('/home')
+                toast.success("Login successful")
+
+            }else{
+                toast.error(result.error);
+                
+            }
+        }
+            
 
     }
 
@@ -39,3 +61,4 @@ function Login()
         </div>
     )
 }
+export default Login
