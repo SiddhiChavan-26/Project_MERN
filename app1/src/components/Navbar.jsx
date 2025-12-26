@@ -17,6 +17,8 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link" aria-current="page" to="/about">About</Link>
                             </li>
+                            
+                        
                             {/* <li class="nav-item">
                             <a class="nav-link disabled" >Disabled</a>
                             </li> */}
