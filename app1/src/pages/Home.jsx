@@ -1,24 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import {useState} from 'react'
+import { getAllCourses } from '../service/commonServices'
 
 export default function Home() {
 
     const[course, setCourse] = useState([])
+    useEffect(()=>{
+        console.log("All courses loaded !")
 
-    const getCourse = () => {
-        const result = getAllCourses()
-        if(result.status == 'success'){
-            setItems(result.data)
+        const getCourses = async() => {
+            console.log("getCourses called !")
+            const result = await getAllCourses()
+            console.log(result.data)
+            if(result.status == 'success'){
+                setCourse(result.data)
+            }
         }
-    }
+        getCourses()
+    },[])
+
+    
 
 
-    return (
+    return <>
         <Navbar />
             <div className="container">
                 <div className="row">
-                    {items.map(e => {
+                    {course.map(e => {
                         return <div className="mt-3 col-4">
                             <div className="card" style={{ width: "20rem" }}>
                                 <div className="card-body">
@@ -32,7 +41,7 @@ export default function Home() {
                     })}
                 </div>
             </div>
-    )
+    </>
 }
 
-export default Home
+
