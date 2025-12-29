@@ -1,20 +1,41 @@
-import React, { useContext, useState } from "react"
-import { useNavigate } from 'react-router';
+import React, {  useState } from 'react'
+import { Link, useNavigate } from 'react-router'
+import { loginUser } from '../service/commonServices'
+import { toast } from 'react-toastify'
+import { LoginContext } from '../App'
 
-
-function Login()
-{
-    const[email,setEmail] = useState('')
-    const[password,setPassword] = useState('')
+function Login() {
+    // Destructuring of array
+    const [email, setEmail] = useState('') // email
+    const [password, setPassword] = useState('')// password
     const navigate = useNavigate()
+    
+    // const { loginStatus, setLoginStatus } = useContext(LoginContext)
+    const [loginStatus, setLoginStatus] = useState('')
 
-    const[LoginStatus,setLoginStatus] = useContext(LoginContext)
-
-    const signin = () =>{
-        console.log("sign in button clicked")
-        console.log(`email-${email}`)
-        console.log(`password-${password}`)
-
+    const signin = async () => {
+        console.log('Sign in button clicked')
+        console.log(`email - ${email}`)
+        console.log(`password - ${password}`)
+        if (email == '')
+            toast.warn('email must be entered')
+        else if (password == '')
+            toast.warn('password must be entered')
+        else {
+            const result = await loginUser(email, password)
+            console.log(result)
+            if (result.status == 'success') {
+                // dynamic navigation -> useNavigate()
+                sessionStorage.setItem('token', result.data.token)
+                sessionStorage.setItem('email', result.data.email)
+                setLoginStatus(true)
+                console.log(loginStatus)
+                navigate('/home')
+                toast.success('Login successful')
+            }
+            else
+                toast.error(result.error)
+        }
     }
 
     return (
@@ -33,9 +54,11 @@ function Login()
                 <button className="btn btn-success" onClick={signin}>Signin</button>
             </div>
 
-            <div>
+            {/* <div>
                 Don't have an account? then to register <Link to='/register' >Click Here</Link>
-            </div>
+            </div> */}
         </div>
     )
 }
+
+export default Login
