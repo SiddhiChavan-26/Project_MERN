@@ -20,6 +20,8 @@ function authUser(req, res, next) {
                 req.headers.role = payload.role
 
                 return next();
+
+
             }
             catch(ex){
                 console.log("ex", ex);

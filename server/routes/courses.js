@@ -13,6 +13,15 @@ router.get('/all-courses', (request, response) => {
   })
 })
 
+//get course code for update video
+router.get('/getCourse/:course_id', (req, res) =>{
+    const {course_id} = req.params
+    const sql = `SELECT * FROM courses WHERE course_id = ?`;
+
+    pool.query(sql, [course_id], (error, data)=>{
+        res.send(result.createResult(error, data))
+    })
+})
 
 router.post('/add', checkAuthorization, (request, response) => {
   const {course_name,description,fees,start_date,end_date,video_expire_days} = request.body
@@ -45,6 +54,14 @@ router.delete('/delete/:course_id', (request, response) => {
   })
 })
 
+//to get course id by course name to Add video
+router.get('/getCourseByName/:course_name', (req, res) => {
+  const {course_name} = req.params
+  const sql = `SELECT * FROM courses WHERE course_name = ?`
+  pool.query(sql, [course_name], (error, data) =>{
+    res.send(result.createResult(error, data))
+  })
+})
 
 
 
