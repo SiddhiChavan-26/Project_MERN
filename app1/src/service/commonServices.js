@@ -1,6 +1,6 @@
-// console.log('common Services')
 import config from './config'
 import axios from 'axios'
+
 
 export async function getAllCourses(){
     console.log('getAllCourses()')

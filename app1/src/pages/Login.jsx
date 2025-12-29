@@ -1,8 +1,12 @@
-import React, {  useState } from 'react'
+
 import { Link, useNavigate } from 'react-router'
 import { loginUser } from '../service/commonServices'
 import { toast } from 'react-toastify'
 import { LoginContext } from '../App'
+import React, { useContext, useState } from "react"
+import { useNavigate } from 'react-router'
+import { toast } from 'react-toastify'
+
 
 function Login() {
     // Destructuring of array
@@ -38,6 +42,36 @@ function Login() {
         }
     }
 
+    const[LoginStatus,setLoginStatus] = useContext(LoginContext)
+
+    const signin = () =>{
+        console.log("sign in button clicked")
+        console.log(`email-${email}`)
+        console.log(`password-${password}`)
+
+        if(email == '')
+            toast.warn("email must be entered")
+        else if(password == '')
+            toast.warn("password must be entered")
+        else {
+            const result = loginUser(email,password)
+            console.log(result)
+            if(result == 'success')
+            {
+                sessionStorage.setItem('token',result.data.token)
+                setLoginStatus(true)
+                navigate('/home')
+                toast.success("Login successful")
+
+            }else{
+                toast.error(result.error);
+                
+            }
+        }
+            
+
+    }
+
     return (
         <div className='container w-50'>
             <div className=" mt-3 mb-3">
@@ -60,5 +94,9 @@ function Login() {
         </div>
     )
 }
+<<<<<<< HEAD
 
 export default Login
+=======
+export default Login
+>>>>>>> main
