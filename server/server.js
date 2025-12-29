@@ -11,11 +11,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-<<<<<<< HEAD
-// app.use(authUser)
-=======
 app.use(authUser)
->>>>>>> main
 
 app.use('/course',coursesRouter)
 app.use('/user',userRouter)

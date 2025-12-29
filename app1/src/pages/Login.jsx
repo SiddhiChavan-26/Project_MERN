@@ -1,12 +1,10 @@
-
 import { Link, useNavigate } from 'react-router'
 import { loginUser } from '../service/commonServices'
 import { toast } from 'react-toastify'
-import { LoginContext } from '../App'
-import React, { useContext, useState } from "react"
-import { useNavigate } from 'react-router'
-import { toast } from 'react-toastify'
-
+import React, {  useState } from "react"
+import { jwtDecode } from "jwt-decode"
+import { useContext } from 'react'
+import { LoginContext } from './LoginContext'
 
 function Login() {
     // Destructuring of array
@@ -14,8 +12,8 @@ function Login() {
     const [password, setPassword] = useState('')// password
     const navigate = useNavigate()
     
-    // const { loginStatus, setLoginStatus } = useContext(LoginContext)
-    const [loginStatus, setLoginStatus] = useState('')
+    const { LoginStatus, setLoginStatus } = useContext(LoginContext)
+  
 
     const signin = async () => {
         console.log('Sign in button clicked')
@@ -30,47 +28,24 @@ function Login() {
             console.log(result)
             if (result.status == 'success') {
                 // dynamic navigation -> useNavigate()
-                sessionStorage.setItem('token', result.data.token)
-                sessionStorage.setItem('email', result.data.email)
+                console.log(result.data)
+                const token = result.data.token
+            
+                sessionStorage.setItem('token', token)
+
+                const decoded = jwtDecode(token)
+                sessionStorage.setItem('email',decoded.email)
+
                 setLoginStatus(true)
-                console.log(loginStatus)
-                navigate('/home')
+                console.log(LoginStatus)
                 toast.success('Login successful')
+                navigate('/home')
             }
             else
                 toast.error(result.error)
         }
     }
 
-    const[LoginStatus,setLoginStatus] = useContext(LoginContext)
-
-    const signin = () =>{
-        console.log("sign in button clicked")
-        console.log(`email-${email}`)
-        console.log(`password-${password}`)
-
-        if(email == '')
-            toast.warn("email must be entered")
-        else if(password == '')
-            toast.warn("password must be entered")
-        else {
-            const result = loginUser(email,password)
-            console.log(result)
-            if(result == 'success')
-            {
-                sessionStorage.setItem('token',result.data.token)
-                setLoginStatus(true)
-                navigate('/home')
-                toast.success("Login successful")
-
-            }else{
-                toast.error(result.error);
-                
-            }
-        }
-            
-
-    }
 
     return (
         <div className='container w-50'>
@@ -88,15 +63,12 @@ function Login() {
                 <button className="btn btn-success" onClick={signin}>Signin</button>
             </div>
 
-            {/* <div>
+            <div>
                 Don't have an account? then to register <Link to='/register' >Click Here</Link>
-            </div> */}
+            </div>
         </div>
     )
 }
-<<<<<<< HEAD
+
 
 export default Login
-=======
-export default Login
->>>>>>> main
