@@ -2,7 +2,6 @@ import config from './config'
 import axios from 'axios'
 
 
-
 export default async function get_videos(){
     console.log("get_videos called!!")
     const URL = config.BASE_URL + '/videos/allVideos'

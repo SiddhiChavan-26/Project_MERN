@@ -1,6 +1,12 @@
-import config from './config'
 import axios from 'axios'
+import config from './config'
 
+//view courses
+export async function viewmore(course_id) {
+  const URL = config.BASE_URL + `/course/viewmore?course_id=${course_id}`;
+  const response = await axios.get(URL);
+  return response.data;
+}
 
 export async function getAllCourses(){
     console.log('getAllCourses()')
@@ -17,3 +23,4 @@ export async function loginUser(email, password) {
     console.log(response)
     return response.data
 }
+

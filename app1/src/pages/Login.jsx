@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router'
 import { loginUser } from '../service/commonServices'
 import { toast } from 'react-toastify'
-import React, {  useState } from "react"
 import { jwtDecode } from "jwt-decode"
 import { useContext } from 'react'
 import { LoginContext } from './LoginContext'
+import React, { useContext, useState } from "react"
+
 
 function Login() {
     // Destructuring of array
@@ -46,7 +47,6 @@ function Login() {
         }
     }
 
-
     return (
         <div className='container w-50'>
             <div className=" mt-3 mb-3">
@@ -62,7 +62,6 @@ function Login() {
             <div className="mb-3">
                 <button className="btn btn-success" onClick={signin}>Signin</button>
             </div>
-
             <div>
                 Don't have an account? then to register <Link to='/register' >Click Here</Link>
             </div>
@@ -72,3 +71,5 @@ function Login() {
 
 
 export default Login
+
+
