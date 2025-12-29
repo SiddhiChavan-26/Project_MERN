@@ -88,15 +88,11 @@ function Login() {
                 <button className="btn btn-success" onClick={signin}>Signin</button>
             </div>
 
-            {/* <div>
+            {<div>
                 Don't have an account? then to register <Link to='/register' >Click Here</Link>
-            </div> */}
+            </div>}
         </div>
     )
 }
-<<<<<<< HEAD
+export default Login
 
-export default Login
-=======
-export default Login
->>>>>>> main
