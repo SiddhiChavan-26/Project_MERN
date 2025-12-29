@@ -5,6 +5,8 @@ import GetAllVideos from './pages/GetAllVideos'
 import UpdateVideos from './pages/UpdateVideos'
 import AddVideo from "./pages/AddVideo"
 import { ToastContainer } from 'react-toastify'
+import RegisterCourse from "./pages/RegisterCourse"
+import Mycourses from "./pages/Mycourses"
 // import {  useState} from "react"
 // import { LoginContext } from "./pages/LoginContext"
 import Login from "./pages/Login"
@@ -22,6 +24,8 @@ function App() {
             <Route path='/Login' element={<Login/>} />
           {/* </LoginContext.Provider> */}
           <Route path="/about" element={<About /> } />
+          <Route path ="/registercourse" element={<RegisterCourse/>}/>
+          <Route path="/mycourses" element={< Mycourses />}/>
           <Route path='/GetAllVideos' element={<GetAllVideos/> } />
           <Route path="/update-video/:course_id/:video_id" element={<UpdateVideos />} />
           <Route path='/AddVideo' element={<AddVideo/>} />
