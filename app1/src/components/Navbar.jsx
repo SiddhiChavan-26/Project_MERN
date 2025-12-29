@@ -25,7 +25,12 @@ function Navbar() {
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form> */}
+                    <div className="ms-auto">
+                        <Link to="/login" className="btn btn-outline-light">
+                        Login
+                        </Link>
                     </div>
+                </div>
             </div>
         </nav>
     )

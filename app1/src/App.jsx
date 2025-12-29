@@ -1,18 +1,27 @@
+import { createContext, useState } from "react"
 import { Navigate, Route, Routes } from "react-router"
 import Home from "./pages/Home"
+import Login from "./pages/Login"
 import About from "./pages/About"
+import Register from "./pages/Register"
 import { ToastContainer } from 'react-toastify'
 
 
+export const LoginContext = createContext()
+
 // functional components
 function App() {
+    const [LoginStatus, setLoginStatus] = useState(false)
   return (
     <>
-        <Routes>          
+     <LoginContext.Provider value={{LoginStatus, setLoginStatus }}>
+        <Routes>   
+          <Route path="/login" element={<Login/>} />  
+          <Route path="/register" element={<Register />} />    
           <Route path="/*" element={<Home /> } />
           <Route path="/about" element={<About /> } />
         </Routes>
-      
+        </LoginContext.Provider>
       <ToastContainer />
     </>
   )
