@@ -4,9 +4,6 @@ import { loginUser } from '../service/commonServices'
 import { toast } from 'react-toastify'
 import { LoginContext } from './LoginContext'
 import React, { useContext, useState } from "react"
-import { useNavigate } from 'react-router'
-import { toast } from 'react-toastify'
-import { LoginContext } from './LoginContext';
 
 
 function Login() {
@@ -66,4 +63,5 @@ function Login() {
     )
 }
 export default Login
+
 
