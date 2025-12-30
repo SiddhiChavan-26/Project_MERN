@@ -71,6 +71,7 @@ router.get('/details/:course_id', (req, res) => {
 router.delete("/delete/:courseId", (req, res) => {
   const { courseId } = req.params;
 
+<<<<<<< HEAD
   const sql = "DELETE FROM courses WHERE course_id = ?";
 
   pool.query(sql, [courseId], (err, data) => {
@@ -102,5 +103,7 @@ router.get("/viewmore", (req, res) => {
     res.send(result.createResult(error, data));
   });
 });
+=======
+>>>>>>> main
 
 module.exports = router;
