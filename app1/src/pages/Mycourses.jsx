@@ -2,26 +2,27 @@ import React from 'react'
 import { useState } from 'react'
 import { getMycourses } from '../service/studentServices'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import NavbarSwitch from '../components/NavbarSwitch'
 
 function Mycourses() {
     const [courses, setCourses] =useState({})
+    const navigate = useNavigate()
 
     useEffect(()=>{
         console.log("useEffect called")
-        getCourses()
-        },[]
-    )
-    const getCourses = async ()=>{
-        console.log("getcourses() called")
-        const email ="ramesh@gmail.com"
-        const result = await getMycourses(email)
-        console.log("result is ",result);
-           console.log("before if")
-        if(result.data.status =='success'){
-          console.log("Inside if")
-          const groupedCourses = {};
 
-          result.data.data.forEach(item => {
+        const getCourses = async ()=>{
+          console.log("getcourses() called")
+          const email ="anil@gmail.com"
+          const result = await getMycourses(email)
+          console.log("result is ",result);
+          console.log("before if")
+          if(result.data.status =='success'){
+            console.log("Inside if")
+            const groupedCourses = {};
+
+            result.data.data.forEach(item => {
             if(!groupedCourses[item.course_name]){
               groupedCourses[item.course_name] ={
                 start_date: item.start_date,
@@ -30,6 +31,7 @@ function Mycourses() {
               };
             } 
             groupedCourses[item.course_name].videos.push({
+              video_id: item.video_id,
               url: item.youtube_url ,
               added_at: item.added_at
             })
@@ -40,7 +42,13 @@ function Mycourses() {
           setCourses(groupedCourses)
         }
     }
+
+        getCourses()
+        },[]
+    )
+    
   return <>
+  <NavbarSwitch />
       <div className="container mt-5">
 
   <h2 className="text-center mb-4">My Registered Courses</h2>
@@ -92,14 +100,12 @@ function Mycourses() {
             ) : (
               courses[courseName].videos.map((video, i) => (
                 <div key={i} className="border rounded p-3 mb-2">
-                  <a
-                    href={video.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="fw-semibold text-decoration-none"
-                  >
+                  <div
+                    className="fw-semibold text-primary"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/video/${video.video_id}`)} >
                     Video {i + 1}
-                  </a>
+                  </div>
                   <p className="text-muted mb-0">
                     Added:{" "}
                     {new Date(video.added_at).toLocaleDateString()}
