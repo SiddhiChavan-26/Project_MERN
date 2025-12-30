@@ -3,11 +3,12 @@ import { Navigate, Route, Routes } from "react-router"
 import { ToastContainer } from 'react-toastify'
 
 import About from "./pages/About"
-
+import ViewMore from "./pages/ViewMore"
 import GetAllVideos from './pages/GetAllVideos'
 import UpdateVideos from './pages/UpdateVideos'
 import AddVideo from "./pages/AddVideo"
 import Login from "./pages/Login"
+import Home from "./pages/Home"
 import Register from "./pages/Register"
 import { LoginContext } from "./pages/LoginContext"
 import RegisterCourse from "./pages/RegisterCourse"
@@ -26,7 +27,7 @@ function App() {
         <Routes>
           <Route path='/home' element={<Home/>} />
           <Route path="/view-more/:course_id" element={<ViewMore />} />       
-          <Route path="/" element={<Home /> } />
+         <Route path="/" element={<Home /> } />
           <Route path='/Login' element={<Login/>} />
            <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About /> } />

@@ -8,12 +8,11 @@ function ViewMore() {
   const [course, setCourse] = useState(null);
 
   useEffect(() => {
-    viewmore(course_id).then(res => {
-      setCourse(res.data[0]);
-    });
-  }, [course_id]);
-
-  if (!course) return <h4>Loading...</h4>;
+  viewmore(course_id).then(res => {
+    console.log("API RESPONSE:", res);
+    setCourse(res.data[0]);
+  });
+}, [course_id]);
 
   return (
     <div className="container mt-4">

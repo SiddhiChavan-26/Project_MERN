@@ -1,0 +1,76 @@
+.about-hero {
+  background: linear-gradient(135deg, #6865f6, #fda085);
+  padding: 50px;
+  border-radius: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.about-image {
+  max-width: 420px;
+  margin-top: 25px;
+  border-radius: 15px;
+  transition: transform 0.4s ease;
+}
+
+.about-image:hover {
+  transform: scale(1.05);
+}
+
+.about-section {
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.about-section h3 {
+  color: #7f00f5;
+  margin-bottom: 15px;
+}
+
+.interactive-box {
+  transition: all 0.4s ease;
+}
+
+.interactive-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+}
+
+.mission-card {
+  border-left: 6px solid #4caf50;
+}
+
+.vision-card {
+  border-left: 6px solid #2136f3;
+}
+
+/* Stats */
+.stat-box {
+  background: rgb(255, 255, 255);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: scale(1.08);
+}
+
+.stat-box h2 {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
