@@ -11,16 +11,22 @@ function Mycourses() {
 
     useEffect(()=>{
         console.log("useEffect called")
-
-        const getCourses = async ()=>{
-          console.log("getcourses() called")
-          const email ="anil@gmail.com"
-          const result = await getMycourses(email)
-          console.log("result is ",result);
+        getCourses()
+        },[]
+    )
+    const getCourses = async ()=>{
+        console.log("getcourses() called")
+        const email = sessionStorage.getItem("email")
+        if(!email){
+          navigate("/Login")
+          return
+        }
+        const result = await getMycourses(email)
+        console.log("result is ",result);
           console.log("before if")
-          if(result.data.status =='success'){
-            console.log("Inside if")
-            const groupedCourses = {};
+        if(result.data.status =='success'){
+          console.log("Inside if")
+          const groupedCourses = {};
 
             result.data.data.forEach(item => {
             if(!groupedCourses[item.course_name]){
@@ -35,18 +41,12 @@ function Mycourses() {
               url: item.youtube_url ,
               added_at: item.added_at
             })
-
           })
           console.log(groupedCourses);
           
           setCourses(groupedCourses)
         }
     }
-
-        getCourses()
-        },[]
-    )
-    
   return <>
   <NavbarSwitch />
       <div className="container mt-5">

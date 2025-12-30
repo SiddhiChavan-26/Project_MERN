@@ -10,8 +10,15 @@ export async function registerUser(email, password, role) {
 }
 //view courses
 export async function viewmore(course_id) {
-  const URL = config.BASE_URL + `/course/viewmore?course_id=${course_id}`;
-  const response = await axios.get(URL);
+  console.log("viewmore() called");
+  console.log("course_id:-",course_id);
+  const URL = config.BASE_URL + `/course/viewmore/${course_id}`;
+  const token = sessionStorage.getItem("token")
+  const headers = {
+    token
+  }
+  const response = await axios.get(URL,{headers});
+  console.log("Response is:",response);
   return response.data;
 }
 

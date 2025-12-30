@@ -56,9 +56,7 @@ router.put('/update/:course_id', checkAuthorization,(req, res) => {
 // 5. GET details for "view more"
 router.get('/details/:course_id', checkAuthorization,(req, res) => {
   const { course_id } = req.params;
-
   const sql = `SELECT * FROM courses WHERE course_id = ?`;
-
   pool.query(sql, [course_id], (error, data) => {
     res.send(result.createResult(error, data ? data[0] : null));
   });
@@ -89,8 +87,8 @@ router.get('/getCourseByName/:course_name', checkAuthorization,(req, res) => {
 });
 
 // 8. View more by course_id
-router.get("/viewmore", (req, res) => {
-  const { course_id } = req.query;
+router.get("/viewmore/:course_id", (req, res) => {
+  const { course_id } = req.params
   const sql = "SELECT course_name, start_date, end_date, fees FROM courses WHERE course_id = ?";
 
   pool.query(sql, [course_id], (error, data) => {
@@ -98,7 +96,5 @@ router.get("/viewmore", (req, res) => {
     res.send(result.createResult(error, data));
   });
 });
-
-
 
 module.exports = router;
