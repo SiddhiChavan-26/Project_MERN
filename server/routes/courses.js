@@ -43,9 +43,7 @@ router.put('/update/:course_id', (req, res) => {
   const { course_id } = req.params;
   const { course_name, description, fees, start_date, end_date, video_expire_days } = req.body;
 
-  const sql = `UPDATE courses
-               SET course_name=?, description=?, fees=?, start_date=?, end_date=?, video_expire_days=?
-               WHERE course_id=?`;
+  const sql = `UPDATE courses SET course_name=?, description=?, fees=?, start_date=?, end_date=?, video_expire_days=? WHERE course_id=?`;
 
   pool.query(
     sql,
@@ -71,7 +69,7 @@ router.get('/details/:course_id', (req, res) => {
 router.delete("/delete/:courseId", (req, res) => {
   const { courseId } = req.params;
 
-<<<<<<< HEAD
+
   const sql = "DELETE FROM courses WHERE course_id = ?";
 
   pool.query(sql, [courseId], (err, data) => {
@@ -103,7 +101,6 @@ router.get("/viewmore", (req, res) => {
     res.send(result.createResult(error, data));
   });
 });
-=======
->>>>>>> main
+
 
 module.exports = router;
