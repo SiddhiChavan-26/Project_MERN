@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+//import { Routes, Route, Navigate } from "react-router-dom";
 import AllCourses from "./pages/AllCourses";
 import UpdateCourse from "./pages/updateCourse";
 import AddCourse from "./pages/AddCourse"
@@ -14,6 +14,8 @@ import Register from "./pages/Register"
 import { LoginContext } from "./pages/LoginContext"
 import RegisterCourse from "./pages/RegisterCourse"
 import Mycourses from "./pages/Mycourses"
+import Home from "./pages/Home"
+import ViewMore from './pages/ViewMore';
 
 
 function App() {
