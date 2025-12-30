@@ -15,7 +15,11 @@ function Mycourses() {
     )
     const getCourses = async ()=>{
         console.log("getcourses() called")
-        const email ="anil@gmail.com"
+        const email = sessionStorage.getItem("email")
+        if(!email){
+          navigate("/Login")
+          return
+        }
         const result = await getMycourses(email)
         console.log("result is ",result);
            console.log("before if")

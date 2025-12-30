@@ -73,15 +73,13 @@ router.get('/getCourseByName/:course_name', (req, res) => {
   })
 })
 
-router.get("/viewmore", (req, res) => {
-  const { course_id } = req.query
+router.get("/viewmore/:course_id", (req, res) => {
+  const { course_id } = req.params
   const sql = "SELECT course_name, start_date, end_date, fees FROM courses WHERE course_id = ?"
   pool.query(sql, [course_id], (error, data) => {
     res.send(result.createResult(error, data))
   })
 })
-
-
 
 module.exports = router;
 

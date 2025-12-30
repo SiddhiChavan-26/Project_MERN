@@ -35,7 +35,7 @@ export default function Home() {
                                     <h5 className="card-title" style={{ height: "2rem" }}>{e.course_name}</h5>
                                     <h6 className="card-subtitle mb-2 text-body-secondary">Starts on : {e.start_date}</h6>
                                     {/* <h6 className="card-subtitle mb-2 text-body-secondary">Rs. {e.price}</h6> */}
-                                    <button className="btn btn-primary" onClick={() => navigate("/view-more/1")}>View More</button>
+                                    <button className="btn btn-primary" onClick={() => navigate(`/viewmore/${e.course_id}`)}>View More</button>
                                 </div>
                             </div>
                         </div>

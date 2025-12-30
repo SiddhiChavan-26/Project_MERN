@@ -42,9 +42,9 @@ function App() {
           <Route path="/about" element={<About /> } />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/view-more/:course_id" element={<ViewMore />} />  
+          <Route path="/viewmore/:course_id" element={<ViewMore />} />  
 
-          <Route path ="/registercourse" element={<RegisterCourse/>}/>
+          <Route path ="/registercourse/:course_id" element={<RegisterCourse/>}/>
           <Route path="/mycourses" element={< Mycourses />}/>
           <Route path="/video/:video_id" element={<VideoDisplay/>}/>
 

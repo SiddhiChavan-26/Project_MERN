@@ -1,14 +1,14 @@
 import axios from "axios";
 import config from "./config";
 
-export async function registerToCourse(course_id, name, email, mobile){
+export async function registerToCourse(course_id, name, email, mobile_no){
     console.log("registerToCourse() called");
-    const URL = config.BASE_URL +"/student/register_to_course"
+    const URL = config.BASE_URL +`/student/register_to_course/${course_id}`
     const token = sessionStorage.getItem("token")
     const headers = {
         token
     }
-    const body ={course_id, name, email, mobile}
+    const body ={course_id,name,email,mobile_no}
     const response =  await axios.post( URL, body, {headers} )
     return response
 }

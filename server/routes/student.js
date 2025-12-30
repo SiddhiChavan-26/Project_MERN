@@ -6,8 +6,9 @@ const pool = require("../db/pool")
 const router = express.Router()
 
 // Register student to course
-router.post("/register_to_course", (req, res) => {
-    const { course_id, email, name, mobile_no } = req.body;
+router.post("/register_to_course/:course_id", (req, res) => {
+    const {  email, name, mobile_no } = req.body;
+    const {course_id} =req.params
     // Step 1: Check student in user table
     const checkUserSql = "SELECT * FROM users WHERE email = ?";
     pool.query(checkUserSql, [email], (error, userData) => {
@@ -19,8 +20,8 @@ router.post("/register_to_course", (req, res) => {
             return res.send(result.createResult("Student not found in user table"));
         }
         // Step 2: Register student to course
-        const insertSql = `INSERT INTO students ( course_id, email, name, mobile_no) VALUES (?, ?, ?, ?)`;
-        pool.query(insertSql,[course_id, email, name, mobile_no],(error, data) => {
+        const insertSql = `INSERT INTO students (course_id,email, name, mobile_no) VALUES (?, ?, ?, ?)`;
+        pool.query(insertSql,[course_id,email, name, mobile_no],(error, data) => {
                 res.send(result.createResult(error, data));
             }
         );
@@ -39,10 +40,8 @@ router.post("/register_to_course", (req, res) => {
 
 //Get all registered courses of student
 router.get("/my_courses/:name",(req,res)=>{
-      console.log("req.params ", req.params);
+    console.log("req.params ", req.params);
     const {name} = req.params
-    //   console.log("req.body ", req.body);
-    // const {name} =req.body
     console.log("name: ", name);
     const sql="SELECT c.course_name FROM courses c INNER JOIN students s ON c.course_id = s.course_id WHERE name=?"
     pool.query(sql,[name],(error,data)=>{
