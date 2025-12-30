@@ -1,5 +1,5 @@
 const express = require("express")
-
+const crypto = require('crypto-js')
 const result = require("../utils/result")
 const pool = require("../db/pool")
 
@@ -43,10 +43,7 @@ router.get("/my_courses/:name",(req,res)=>{
     const {name} = req.params
     //   console.log("req.body ", req.body);
     // const {name} =req.body
-  
-    
     console.log("name: ", name);
-    
     const sql="SELECT c.course_name FROM courses c INNER JOIN students s ON c.course_id = s.course_id WHERE name=?"
     pool.query(sql,[name],(error,data)=>{
         console.log(data)
@@ -67,12 +64,12 @@ router.get("/my-coursewith-videos/:email",(req,res)=>{
 //Change password
 router.put("/change-password",(req,res)=>{
     const {password, email}=req.body
+    const hashedPassword = crypto.SHA256(password).toString()
     const sql = "UPDATE users SET password = ? WHERE email =?"
-    pool.query(sql,[password,email],(error,data)=>{
+    pool.query(sql,[hashedPassword,email],(error,data)=>{
         res.send(result.createResult(error,data))
     })
 })
-
 //display video api
 router.get("/video/:video_id",(req, res) =>{
     const { video_id } = req.params;
@@ -82,5 +79,4 @@ router.get("/video/:video_id",(req, res) =>{
   });
 
 })
-
 module.exports = router

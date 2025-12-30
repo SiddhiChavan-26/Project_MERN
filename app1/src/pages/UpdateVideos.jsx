@@ -6,6 +6,7 @@ import {toast} from 'react-toastify';
 import {getVideoById, updateVideo } from '../service/videoServices';
 import { getCourseById } from '../service/videoServices';
 
+
 function UpdateVideos() {
 
     const { video_id, course_id} = useParams();
@@ -38,7 +39,8 @@ function UpdateVideos() {
       };
 
       if (video_id ) getVideo()
-        if(course_id) getCourse()
+      if(course_id) getCourse()
+      
     }, [video_id,course_id])
 
     const update = async ()=> {
