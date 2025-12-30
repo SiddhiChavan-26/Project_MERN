@@ -1,11 +1,13 @@
 import {  useState } from "react"
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route} from "react-router";
 import { ToastContainer } from "react-toastify";
 import { LoginContext } from "./pages/LoginContext"
+// import { useNavigate } from "react-router";
 
 import About from "./pages/About"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+import Home from "./pages/Home";
 
 import AllCourses from "./pages/AllCourses";
 import UpdateCourse from "./pages/updateCourse";
@@ -20,6 +22,8 @@ import ChangePassword from "./pages/ChangePassword"
 
 import RegisterCourse from "./pages/RegisterCourse"
 import Mycourses from "./pages/Mycourses"
+import VideoDisplay from "./pages/VideoDisplay"
+import ViewMore from './pages/ViewMore';
 
 
 
@@ -42,6 +46,7 @@ function App() {
 
           <Route path ="/registercourse" element={<RegisterCourse/>}/>
           <Route path="/mycourses" element={< Mycourses />}/>
+          <Route path="/video/:video_id" element={<VideoDisplay/>}/>
 
           <Route path='/GetAllVideos' element={<GetAllVideos/> } />
           <Route path="/update-video/:course_id/:video_id" element={<UpdateVideos />} />
