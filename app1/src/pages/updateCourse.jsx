@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+
 import { useParams, useNavigate } from "react-router-dom";
+import { getCourseById, updateCourse } from "../service/courseService";
 import { toast } from "react-toastify";
-import { getCourseById, updateCourse } from "../service/coursesService";
+import React, { useEffect, useState } from "react";
 
 export default function UpdateCourse() {
   const { id } = useParams();
@@ -12,9 +13,8 @@ export default function UpdateCourse() {
     description: "",
     fees: "",
     start_date: "",
-    end_date: "",
-    video_expire_days: ""
-  });
+    end_date: "",  video_expire_days: "",});
+
 
   useEffect(() => {
     loadCourse();

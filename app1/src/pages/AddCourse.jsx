@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { newCourse } from "../service/coursesService";
+import { newCourse } from "../service/courseService";
 import { toast } from "react-toastify";
 
 

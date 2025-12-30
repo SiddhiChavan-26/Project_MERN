@@ -5,8 +5,22 @@ const { checkAuthorization } = require('../utils/auth')
 
 const router = express.Router()
 
+router.get('/allVideos', checkAuthorization,(req, res) => {
+    const sql = `Select * from videos`
+    pool.query(sql, (error, data) => {
+        res.send(result.createResult(error, data))
+    })
+})
 
-router.get('/all_videos/:course_id', (req, res) => {
+router.get('/getVideo/:video_id', checkAuthorization, (req, res) => {
+    const {video_id } = req.params
+    const sql = `Select * from videos WHERE video_id = ?`
+    pool.query(sql,[video_id], (error , data) => {
+        res.send(result.createResult(error, data))
+    })
+})
+
+router.get('/all_videos/:course_id', checkAuthorization,(req, res) => {
     const {course_id} = req.params
     const {email, role} = req.headers
 
@@ -46,7 +60,7 @@ router.post('/add', checkAuthorization, (req, res) => {
 })
 
 //request parameter(write parameters in the URL)
-router.put('/update/:video_id', checkAuthorization, (req, res) => {
+router.put('/update/:video_id',  checkAuthorization,(req, res) => {
     const {video_id} = req.params
     const {course_id, title, youtube_url, description} = req.body
     const sql = `UPDATE videos SET course_id = ?, title = ?, youtube_url = ?, description =? WHERE video_id = ?`
@@ -54,6 +68,7 @@ router.put('/update/:video_id', checkAuthorization, (req, res) => {
         res.send(result.createResult(error, data))
     })
 })
+
 
 //delete video on video_id
 router.delete('/delete/:video_id', checkAuthorization, (req, res) => {
