@@ -1,5 +1,5 @@
-const express = require('express');
-const cors = require('cors');
+const express = require('express')
+const cors = require('cors')
 
 const coursesRouter = require('./routes/courses');
 const userRouter = require('./routes/users');
@@ -12,6 +12,7 @@ const app = express();
 
 app.use(cors())
 app.use(express.json())
+app.use(cors())
 app.use(authUser)
 
 

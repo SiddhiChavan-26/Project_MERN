@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { LoginContext } from './../pages/LoginContext'
-import ChangePassword from '../pages/ChangePassword'
+import GetAllVideos from './../pages/GetAllVideos';
 
 function Navbar() {
     const navigate = useNavigate()
@@ -17,7 +17,6 @@ function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <div className="container-fluid">
-
                 <Link className="navbar-brand" to="/home">Student Portal</Link>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -62,9 +61,9 @@ function Navbar() {
                                     </button>
 
                                     {/* DROPDOWN */}
-                                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <ul className="dropdown-menu dropdown-menu-end">
                                         <li>
-                                            <Link className="dropdown-item" to="/ChangePassword">
+                                            <Link className="dropdown-item" to="/change-password">
                                                 Change Password
                                             </Link>
                                         </li>

@@ -106,6 +106,7 @@ export default function UpdateCourse() {
           </button>
         </form>
       </div>
+
     </div>
   );
 }
