@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { get_All_Courses, deleteCourse } from "../service/coursesService";
 
@@ -8,41 +8,45 @@ export default function AllCourses() {
     const [courses, setCourses] = useState([]);
     const navigate = useNavigate();
 
+
     useEffect(() => {
+
+        const loadData = async () => {
+            try {
+                const res = await get_All_Courses();
+                const body = res.data;
+                const data =
+                    body?.data ||
+                    body?.courses ||
+                    body?.result ||
+                    body ||
+                    [];
+
+                if (Array.isArray(data)) {
+                    setCourses(data);
+                } else {
+                    console.log("API Response:", body);
+                    toast.error("Invalid API format");
+                }
+
+            } catch (error) {
+                    console.error("Fetch Error:", error);
+                    toast.error("Network error while fetching courses");
+                }
+        };
         loadData();
     }, []);
 
-    const loadData = async () => {
-    try {
-        const res = await get_All_Courses();
-        const body = res.data;
-        const data =
-            body?.data ||
-            body?.courses ||
-            body?.result ||
-            body ||
-            [];
-
-        if (Array.isArray(data)) {
-            setCourses(data);
-        } else {
-            console.log("API Response:", body);
-            toast.error("Invalid API format");
-        }
-
-    } catch (error) {
-        console.error("Fetch Error:", error);
-        toast.error("Network error while fetching courses");
-    }
-};
+    
 
 
     const handleDelete = async (id) => {
         try {
             await deleteCourse(id);
             toast.success("Course deleted successfully");
-            loadData();
+            // loadData();
         } catch (err) {
+            console.log(err)
             toast.error("Error deleting course");
         }
     };

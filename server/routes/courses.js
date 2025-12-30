@@ -1,11 +1,12 @@
 const express = require('express');
 const pool = require('../db/pool');
 const result = require('../utils/result');
+const { checkAuthorization } = require('../utils/auth')
 
 const router = express.Router();
 
 // 1. GET all courses
-router.get('/all-courses', (req, res) => {
+router.get('/all-courses', checkAuthorization,(req, res) => {
   const sql = `SELECT * FROM courses`;
   pool.query(sql, (error, data) => {
     res.send(result.createResult(error, data));
@@ -13,7 +14,7 @@ router.get('/all-courses', (req, res) => {
 });
 
 // 2. ADD new course
-router.post('/add', (request, response) => {
+router.post('/add', checkAuthorization,(request, response) => {
   const { course_name, description, fees, start_date, end_date, video_expire_days } = request.body;
 
   const sql = `INSERT INTO courses(course_name, description, fees, start_date, end_date, video_expire_days)
@@ -29,7 +30,7 @@ router.post('/add', (request, response) => {
 });
 
 // 3. GET single course by ID
-router.get('/getCourse/:course_id', (req, res) => {
+router.get('/getCourse/:course_id', checkAuthorization,(req, res) => {
   const { course_id } = req.params;
 
   const sql = `SELECT * FROM courses WHERE course_id = ?`;
@@ -39,7 +40,7 @@ router.get('/getCourse/:course_id', (req, res) => {
 });
 
 // 4. UPDATE course
-router.put('/update/:course_id', (req, res) => {
+router.put('/update/:course_id', checkAuthorization,(req, res) => {
   const { course_id } = req.params;
   const { course_name, description, fees, start_date, end_date, video_expire_days } = req.body;
 
@@ -57,7 +58,7 @@ router.put('/update/:course_id', (req, res) => {
 });
 
 // 5. GET details for "view more"
-router.get('/details/:course_id', (req, res) => {
+router.get('/details/:course_id', checkAuthorization,(req, res) => {
   const { course_id } = req.params;
 
   const sql = `SELECT * FROM courses WHERE course_id = ?`;
@@ -68,10 +69,8 @@ router.get('/details/:course_id', (req, res) => {
 });
 
 // 6. DELETE course
-router.delete("/delete/:courseId", (req, res) => {
+router.delete("/delete/:courseId", checkAuthorization,(req, res) => {
   const { courseId } = req.params;
-
-<<<<<<< HEAD
   const sql = "DELETE FROM courses WHERE course_id = ?";
 
   pool.query(sql, [courseId], (err, data) => {
@@ -83,7 +82,7 @@ router.delete("/delete/:courseId", (req, res) => {
 });
 
 // 7. GET course by name
-router.get('/getCourseByName/:course_name', (req, res) => {
+router.get('/getCourseByName/:course_name', checkAuthorization,(req, res) => {
   const { course_name } = req.params;
 
   const sql = `SELECT * FROM courses WHERE course_name = ?`;
@@ -96,14 +95,12 @@ router.get('/getCourseByName/:course_name', (req, res) => {
 // 8. View more by course_id
 router.get("/viewmore", (req, res) => {
   const { course_id } = req.query;
-
   const sql = "SELECT course_name, start_date, end_date, fees FROM courses WHERE course_id = ?";
 
   pool.query(sql, [course_id], (error, data) => {
     res.send(result.createResult(error, data));
   });
 });
-=======
->>>>>>> main
+
 
 module.exports = router;

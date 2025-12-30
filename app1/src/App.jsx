@@ -1,4 +1,3 @@
-
 import {  useState } from "react"
 import { Routes, Route} from "react-router";
 import { ToastContainer } from "react-toastify";
@@ -6,9 +5,7 @@ import { ToastContainer } from "react-toastify";
 import AllCourses from "./pages/AllCourses";
 import UpdateCourse from "./pages/updateCourse";
 import AddCourse from "./pages/AddCourse"
-import { createContext, useState } from "react"
-import { Navigate, Route, Routes } from "react-router"
-import { ToastContainer } from 'react-toastify'
+
 import About from "./pages/About"
 import GetAllVideos from './pages/GetAllVideos'
 import UpdateVideos from './pages/UpdateVideos'
@@ -20,9 +17,8 @@ import RegisterCourse from "./pages/RegisterCourse"
 import Mycourses from "./pages/Mycourses"
 import VideoDisplay from "./pages/VideoDisplay"
 import ViewMore from './pages/ViewMore';
-
 import Home from "./pages/Home"
-import ViewMore from './pages/ViewMore';
+import ChangePassword from "./pages/ChangePassword";
 
 
 
@@ -56,7 +52,6 @@ function App() {
           <Route path="/AddCourse" element={<AddCourse/>} />
           <Route path="/AllCourses" element={<AllCourses/>} />
           <Route path="/update-course/:id" element={<UpdateCourse />} />
-
 
           </Routes>
         </LoginContext.Provider>

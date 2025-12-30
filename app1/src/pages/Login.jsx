@@ -34,7 +34,7 @@ function Login() {
 
                 const decoded = jwtDecode(token)
                 sessionStorage.setItem('email',decoded.email)
-
+                sessionStorage.setItem('role',decoded.role)
                 setLoginStatus(true)
                 console.log(LoginStatus)
                 toast.success('Login successful')

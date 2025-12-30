@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { getCourseIdByName } from '../service/videoServices'
 import { toast } from 'react-toastify'
 import { addNewVideo } from '../service/videoServices'
+import NavbarSwitch from '../components/NavbarSwitch'
 
 function AddVideo() {
 
@@ -50,7 +51,7 @@ function AddVideo() {
   
     return (
     <>
-        <Navbar />
+        <NavbarSwitch />
 
         <div className="container d-flex justify-content-center align-items-center mt-5">
         <div className="card shadow p-4" style={{ width: "450px" }}>
