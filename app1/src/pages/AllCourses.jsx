@@ -1,8 +1,6 @@
-
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { get_All_Courses, delete_Course } from "../service/courseService";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 
 
