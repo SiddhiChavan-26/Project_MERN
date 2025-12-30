@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { LoginContext } from './../pages/LoginContext'
 import ChangePassword from '../pages/ChangePassword'
+import Mycourses from '../pages/Mycourses'
 
-
-function Navbar() {
+function StudentNavbar() {
     const navigate = useNavigate()
     const { LoginStatus, setLoginStatus } = useContext(LoginContext)
     const email = sessionStorage.getItem('email')
@@ -32,9 +32,9 @@ function Navbar() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/about">About</Link>
                         </li>
-                        {/* <li className="nav-item">
+                        <li className="nav-item">
                             <Link className="nav-link" to="/mycourses">My Courses</Link>
-                        </li> */}
+                        </li>
                     
                     </ul>
 
@@ -82,5 +82,4 @@ function Navbar() {
     )
 }
 
-export default Navbar
-
+export default StudentNavbar

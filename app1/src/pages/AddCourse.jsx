@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { newCourse } from "../service/courseService";
+import { newCourse } from "../service/coursesService";
 import { toast } from "react-toastify";
-
+import NavbarSwitch from "../components/NavbarSwitch";
 
 export default function AddCourse() {
   const [course_name, setCourseName] = useState("");
@@ -13,7 +13,7 @@ export default function AddCourse() {
 
 
   const addCourse = async () => {
-    
+
     if (!course_name) return toast.warn("Course name must be entered");
     if (!description) return toast.warn("Description must be entered");
     if (!fees) return toast.warn("Fees must be entered");
@@ -37,7 +37,7 @@ export default function AddCourse() {
       if (result.status === "success") {
         toast.success("Course Added Successfully");
 
-    
+        
         setCourseName("");
         setDescription("");
         setFees("");
@@ -48,29 +48,29 @@ export default function AddCourse() {
         toast.error(result.error || "Something went wrong");
       }
     } catch (error) {
+      console.log(error)
       toast.error("Server error");
     }
   };
 
   return (
+    <>
+    <NavbarSwitch/>
     <div className="container col-md-6 mt-4">
       <div className="card shadow p-4">
         <h3 className="text-center mb-4">Add New Course</h3>
 
         <label>Course Name</label>
         <input
-          type="text"
           className="form-control mb-3"
-          placeholder="Enter course name"
+          value={course_name}
           onChange={(e) => setCourseName(e.target.value)}
         />
 
         <label>Description</label>
         <input
-          type="text"
           className="form-control mb-3"
-          placeholder="Enter description"
-
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
 
@@ -78,7 +78,7 @@ export default function AddCourse() {
         <input
           type="number"
           className="form-control mb-3"
-          placeholder="Enter course fees"
+          value={fees}
           onChange={(e) => setFees(e.target.value)}
         />
 
@@ -86,6 +86,7 @@ export default function AddCourse() {
         <input
           type="date"
           className="form-control mb-3"
+          value={start_date}
           onChange={(e) => setStartDate(e.target.value)}
         />
 
@@ -93,6 +94,7 @@ export default function AddCourse() {
         <input
           type="date"
           className="form-control mb-3"
+          value={end_date}
           onChange={(e) => setEndDate(e.target.value)}
         />
 
@@ -100,7 +102,6 @@ export default function AddCourse() {
         <input
           type="number"
           className="form-control mb-4"
-
           value={video_expire_days}
           onChange={(e) => setExpireDays(e.target.value)}
         />
@@ -110,5 +111,6 @@ export default function AddCourse() {
         </button>
       </div>
     </div>
+    </>
   );
 }

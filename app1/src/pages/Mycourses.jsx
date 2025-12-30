@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { getMycourses } from '../service/studentServices'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import NavbarSwitch from '../components/NavbarSwitch'
 
 function Mycourses() {
     const [courses, setCourses] =useState({})
@@ -22,12 +23,12 @@ function Mycourses() {
         }
         const result = await getMycourses(email)
         console.log("result is ",result);
-           console.log("before if")
+          console.log("before if")
         if(result.data.status =='success'){
           console.log("Inside if")
           const groupedCourses = {};
 
-          result.data.data.forEach(item => {
+            result.data.data.forEach(item => {
             if(!groupedCourses[item.course_name]){
               groupedCourses[item.course_name] ={
                 start_date: item.start_date,
@@ -40,7 +41,6 @@ function Mycourses() {
               url: item.youtube_url ,
               added_at: item.added_at
             })
-
           })
           console.log(groupedCourses);
           
@@ -48,6 +48,7 @@ function Mycourses() {
         }
     }
   return <>
+  <NavbarSwitch />
       <div className="container mt-5">
 
   <h2 className="text-center mb-4">My Registered Courses</h2>

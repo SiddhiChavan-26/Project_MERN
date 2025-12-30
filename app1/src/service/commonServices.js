@@ -41,7 +41,7 @@ export async function loginUser(email, password) {
 
 export async function changePass(email, password){
   console.log('changePass called !')
-  const URL = config.BASE_URL + `/student/change-password`
+  const URL = config.BASE_URL +  `/student/change-password`
   const body =  {email, password}
   const token = sessionStorage.getItem('token')
   const headers = { token }

@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import {toast} from 'react-toastify';
 import {getVideoById, updateVideo } from '../service/videoServices';
 import { getCourseById } from '../service/videoServices';
-
+import NavbarSwitch from '../components/NavbarSwitch';
 
 function UpdateVideos() {
 
@@ -39,8 +39,7 @@ function UpdateVideos() {
       };
 
       if (video_id ) getVideo()
-      if(course_id) getCourse()
-      
+        if(course_id) getCourse()
     }, [video_id,course_id])
 
     const update = async ()=> {
@@ -52,7 +51,7 @@ function UpdateVideos() {
 
   return (
   <>
-    <Navbar />
+    <NavbarSwitch />
 
     <div className="container d-flex justify-content-center align-items-center mt-5">
       <div className="card shadow p-4" style={{ width: "450px" }}>

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { changePass } from '../service/commonServices'
 import Navbar from '../components/Navbar'
+import NavbarSwitch from '../components/NavbarSwitch'
 
 function ChangePassword() {
 
@@ -38,7 +39,7 @@ function ChangePassword() {
     }
     return (
     <>
-      <Navbar />
+      <NavbarSwitch/>
 
       <div className="container d-flex justify-content-center mt-5">
         <div className="card shadow p-4" style={{ width: '400px' }}>

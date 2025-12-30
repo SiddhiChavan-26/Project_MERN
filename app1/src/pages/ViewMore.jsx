@@ -7,13 +7,14 @@ function ViewMore() {
   const { course_id } = useParams();
   const [course, setCourse] = useState(null);
   const navigate = useNavigate()
-
+  
   useEffect(()=>{
     console.log("useEffect called()");
     console.log(course);
     if(course_id){
     fetchCourse()}
   },[course_id])
+
 
   const fetchCourse =async ()=>{
     console.log("fetchcourse() called");
