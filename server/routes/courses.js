@@ -97,7 +97,7 @@ router.get("/viewmore", (req, res) => {
   pool.query(sql, [course_id], (error, data) => {
 
     res.send(result.createResult(error, data))
-   
+  
   })
 })
     
