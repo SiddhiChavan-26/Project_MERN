@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { get_All_Courses, deleteCourse } from "../service/coursesService";
+import { get_All_Courses, delete_Course } from "../service/courseService";
+import { ToastContainer, toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
+
 
 export default function AllCourses() {
     const [courses, setCourses] = useState([]);
@@ -73,4 +76,5 @@ export default function AllCourses() {
             </div>
         </div>
     );
+
 }

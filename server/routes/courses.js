@@ -1,17 +1,18 @@
 const express = require('express');
 const pool = require('../db/pool');
 const result = require('../utils/result');
+const { checkAuthorization } = require('../utils/auth');
 
 const router = express.Router();
 
 
-router.get('/all-courses', (request, response) => {
+
+router.get('/all-courses', (req, res) => {
   const sql = `SELECT * FROM courses`;
   pool.query(sql, (error, data) => {
-    response.send(result.createResult(error, data));
-  });
+    res.send(result.createResult(error, data));
+  })
 });
-
 
 router.post('/add', (request, response) => {
   const { course_name, description, fees, start_date, end_date, video_expire_days } = request.body;
@@ -21,6 +22,15 @@ router.post('/add', (request, response) => {
   });
 });
 
+//get course code for update video
+router.get('/getCourse/:course_id', (req, res) =>{
+    const {course_id} = req.params
+    const sql = `SELECT * FROM courses WHERE course_id = ?`;
+
+    pool.query(sql, [course_id], (error, data)=>{
+        res.send(result.createResult(error, data))
+    })
+})
 
 router.put('/update/:course_id', (request, response) => {
   const { course_id } = request.params;
@@ -31,6 +41,14 @@ router.put('/update/:course_id', (request, response) => {
   });
 });
 
+router.get('/details/:course_id', (req, res) => {
+  const { course_id } = req.params;
+
+  const sql = `SELECT * FROM courses WHERE course_id = ?`;
+  pool.query(sql, [course_id], (error, data) => {
+    res.send(result.createResult(error, data ? data[0] : null));
+  })
+});
 
 router.delete("/delete/:courseId", (req, res) => {
   const { courseId } = req.params;
@@ -46,7 +64,24 @@ router.delete("/delete/:courseId", (req, res) => {
   });
 });
 
+//to get course id by course name to Add video
+router.get('/getCourseByName/:course_name', (req, res) => {
+  const {course_name} = req.params
+  const sql = `SELECT * FROM courses WHERE course_name = ?`
+  pool.query(sql, [course_name], (error, data) =>{
+    res.send(result.createResult(error, data))
+  })
+})
+
+router.get("/viewmore", (req, res) => {
+  const { course_id } = req.query
+  const sql = "SELECT course_name, start_date, end_date, fees FROM courses WHERE course_id = ?"
+  pool.query(sql, [course_id], (error, data) => {
+    res.send(result.createResult(error, data))
+  })
+})
 
 
-  
+
 module.exports = router;
+

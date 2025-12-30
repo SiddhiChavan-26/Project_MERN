@@ -1,5 +1,5 @@
 const express = require("express")
-
+const crypto = require('crypto-js')
 const result = require("../utils/result")
 const pool = require("../db/pool")
 
@@ -27,21 +27,38 @@ router.post("/register_to_course", (req, res) => {
     });
 });
 
+// //register student to course (without login checking)
+// router.post("/register_to_course",(req,res)=>{
+//     const { course_id, email, name, mobile_no } = req.body
+//     const Sql = `INSERT INTO students( course_id, email, name, mobile_no) VALUES (?, ?, ?, ?)`
+//     pool.query(Sql,[course_id, email, name, mobile_no],(error, data) => {
+//                 res.send(result.createResult(error, data));
+//             }
+//         );
+// })
 
 //Get all registered courses of student
-router.get("/my_courses",(req,res)=>{
-    const {name} =req.body
+router.get("/my_courses/:name",(req,res)=>{
+      console.log("req.params ", req.params);
+    const {name} = req.params
+    //   console.log("req.body ", req.body);
+    // const {name} =req.body
+  
+    
+    console.log("name: ", name);
+    
     const sql="SELECT c.course_name FROM courses c INNER JOIN students s ON c.course_id = s.course_id WHERE name=?"
     pool.query(sql,[name],(error,data)=>{
+        console.log(data)
         res.send(result.createResult(error,data))
     })
                 
 })
 
 //get all registered courses of a student along with valid videos -
-router.get("/my-coursewith-videos",(req,res)=>{
-    const {email} = req.body
-    const sql="SELECT c.course_name, v.youtube_url FROM courses c INNER JOIN videos v ON c.course_id = v.course_id INNER JOIN students s ON s.course_id= c.course_id WHERE email=? AND (start_date + video_expire_days) < CURDATE()"
+router.get("/my-coursewith-videos/:email",(req,res)=>{
+    const {email} = req.params
+    const sql="SELECT c.course_name, c.start_date, c.end_date, v.added_at, v.youtube_url FROM courses c INNER JOIN videos v ON c.course_id = v.course_id INNER JOIN students s ON s.course_id= c.course_id WHERE email=? AND (start_date + video_expire_days) < CURDATE()"
     pool.query(sql,[email],(error,data)=>{
         res.send(result.createResult(error,data))
     })
@@ -50,10 +67,13 @@ router.get("/my-coursewith-videos",(req,res)=>{
 //Change password
 router.put("/change-password",(req,res)=>{
     const {password, email}=req.body
+    const hashedPassword = crypto.SHA256(password).toString()
     const sql = "UPDATE users SET password = ? WHERE email =?"
-    pool.query(sql,[password,email],(error,data)=>{
+    pool.query(sql,[hashedPassword,email],(error,data)=>{
         res.send(result.createResult(error,data))
     })
 })
+
+
 
 module.exports = router

@@ -18,8 +18,11 @@ function authUser(req, res, next) {
 
                 req.headers.email = payload.email
                 req.headers.role = payload.role
+                console.log(req.headers.role)
 
                 return next();
+
+
             }
             catch(ex){
                 console.log("ex", ex);
@@ -31,6 +34,7 @@ function authUser(req, res, next) {
 
 function checkAuthorization(req, res, next){
     const role = req.headers.role
+    console.log(req.headers)
     console.log("current user role : ", role)
 
     if(role === 'admin'){

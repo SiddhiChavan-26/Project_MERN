@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { newCourse } from "../service/coursesService";
+import { newCourse } from "../service/courseService";
 import { toast } from "react-toastify";
+
 
 export default function AddCourse() {
   const [course_name, setCourseName] = useState("");
@@ -58,15 +59,18 @@ export default function AddCourse() {
 
         <label>Course Name</label>
         <input
+          type="text"
           className="form-control mb-3"
-          value={course_name}
+          placeholder="Enter course name"
           onChange={(e) => setCourseName(e.target.value)}
         />
 
         <label>Description</label>
         <input
+          type="text"
           className="form-control mb-3"
-          value={description}
+          placeholder="Enter description"
+
           onChange={(e) => setDescription(e.target.value)}
         />
 
@@ -74,7 +78,7 @@ export default function AddCourse() {
         <input
           type="number"
           className="form-control mb-3"
-          value={fees}
+          placeholder="Enter course fees"
           onChange={(e) => setFees(e.target.value)}
         />
 
@@ -82,7 +86,6 @@ export default function AddCourse() {
         <input
           type="date"
           className="form-control mb-3"
-          value={start_date}
           onChange={(e) => setStartDate(e.target.value)}
         />
 
@@ -90,7 +93,6 @@ export default function AddCourse() {
         <input
           type="date"
           className="form-control mb-3"
-          value={end_date}
           onChange={(e) => setEndDate(e.target.value)}
         />
 
@@ -98,6 +100,7 @@ export default function AddCourse() {
         <input
           type="number"
           className="form-control mb-4"
+
           value={video_expire_days}
           onChange={(e) => setExpireDays(e.target.value)}
         />

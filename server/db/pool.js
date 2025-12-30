@@ -5,10 +5,6 @@ const pool = mysql2.createPool({
     user : 'root',
     password : 'maneger',
     database : 'project_mern'
-
-
-
-
 })
 
 module.exports = pool ;
