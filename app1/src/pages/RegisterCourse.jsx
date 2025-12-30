@@ -1,12 +1,13 @@
 import {React, useState } from 'react'
 import {registerToCourse} from '../service/studentServices'
 import { toast } from 'react-toastify'
+import { useParams } from 'react-router'
 
 function RegisterCourse() {
-    const [course_id, setCourseID] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [mobile, setMobile] = useState('')
+    const {course_id} = useParams()
 
     const register = async () =>{
         if (name == '')
@@ -15,8 +16,6 @@ function RegisterCourse() {
             toast.warn('email must be entered')
         else if (mobile == '')
             toast.warn('mobile must be entered')
-        else if (course_id == '')
-            toast.warn('course_id must be entered')
         else {
         const result = await registerToCourse(course_id, name, email, mobile)
         console.log(result.data);
@@ -63,17 +62,6 @@ function RegisterCourse() {
                     id="inputMobile"
                     placeholder="Enter your mobile number"
                     onChange={e => setMobile(e.target.value)}
-                />
-            </div>
-
-            <div className="mb-4">
-                <label htmlFor="inputcourseid" className="form-label">Course ID</label>
-                <input
-                    type="tel"
-                    className="form-control rounded"
-                    id="inputcourseid"
-                    placeholder="Enter course ID to Register"
-                    onChange={e => setCourseID(e.target.value)}
                 />
             </div>
             <button className="btn btn-info text-white w-100 rounded"  onClick={register}>Register</button>

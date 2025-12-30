@@ -1,5 +1,5 @@
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { getCourseById, updateCourse } from "../service/courseService";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";

@@ -66,11 +66,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
-.navbar {
-  overflow: visible !important;
-}
-
-.dropdown-menu {
-  z-index: 9999;
-}
