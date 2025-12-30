@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
@@ -30,10 +29,11 @@ export default function AllCourses() {
                 }
 
             } catch (error) {
-                    console.error("Fetch Error:", error);
-                    toast.error("Network error while fetching courses");
-                }
+                console.error("Fetch Error:", error);
+                toast.error("Network error while fetching courses");
+            }
         };
+
         loadData();
     }, []);
 

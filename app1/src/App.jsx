@@ -12,6 +12,7 @@ import UpdateVideos from './pages/UpdateVideos'
 import AddVideo from "./pages/AddVideo"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+
 import { LoginContext } from "./pages/LoginContext"
 import RegisterCourse from "./pages/RegisterCourse"
 import Mycourses from "./pages/Mycourses"
@@ -19,6 +20,7 @@ import VideoDisplay from "./pages/VideoDisplay"
 import ViewMore from './pages/ViewMore';
 import Home from "./pages/Home"
 import ChangePassword from "./pages/ChangePassword";
+
 
 
 
