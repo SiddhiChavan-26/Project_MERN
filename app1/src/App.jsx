@@ -1,28 +1,27 @@
+
 import {  useState } from "react"
 import { Routes, Route} from "react-router";
 import { ToastContainer } from "react-toastify";
-import { LoginContext } from "./pages/LoginContext"
-// import { useNavigate } from "react-router";
-
-import About from "./pages/About"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Home from "./pages/Home";
 
 import AllCourses from "./pages/AllCourses";
 import UpdateCourse from "./pages/updateCourse";
 import AddCourse from "./pages/AddCourse"
-
-
+import { createContext, useState } from "react"
+import { Navigate, Route, Routes } from "react-router"
+import { ToastContainer } from 'react-toastify'
+import About from "./pages/About"
 import GetAllVideos from './pages/GetAllVideos'
 import UpdateVideos from './pages/UpdateVideos'
 import AddVideo from "./pages/AddVideo"
-import ChangePassword from "./pages/ChangePassword"
-
-
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import { LoginContext } from "./pages/LoginContext"
 import RegisterCourse from "./pages/RegisterCourse"
 import Mycourses from "./pages/Mycourses"
 import VideoDisplay from "./pages/VideoDisplay"
+import ViewMore from './pages/ViewMore';
+
+import Home from "./pages/Home"
 import ViewMore from './pages/ViewMore';
 
 
@@ -35,6 +34,7 @@ function App() {
   return (
     <>  
         <LoginContext.Provider value={{LoginStatus, setLoginStatus}}> 
+
         <Routes>
           <Route path='/home' element={<Home/>} />
           <Route path="/" element={<Home /> } />
@@ -57,8 +57,10 @@ function App() {
           <Route path="/AllCourses" element={<AllCourses/>} />
           <Route path="/update-course/:id" element={<UpdateCourse />} />
 
+
           </Routes>
         </LoginContext.Provider>
+
       <ToastContainer />
     </>
   );
