@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { getMycourses } from '../service/studentServices'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import NavbarSwitch from '../components/NavbarSwitch'
 
 function Mycourses() {
     const [courses, setCourses] =useState({})
@@ -10,20 +11,18 @@ function Mycourses() {
 
     useEffect(()=>{
         console.log("useEffect called")
-        getCourses()
-        },[]
-    )
-    const getCourses = async ()=>{
-        console.log("getcourses() called")
-        const email ="anil@gmail.com"
-        const result = await getMycourses(email)
-        console.log("result is ",result);
-           console.log("before if")
-        if(result.data.status =='success'){
-          console.log("Inside if")
-          const groupedCourses = {};
 
-          result.data.data.forEach(item => {
+        const getCourses = async ()=>{
+          console.log("getcourses() called")
+          const email ="anil@gmail.com"
+          const result = await getMycourses(email)
+          console.log("result is ",result);
+          console.log("before if")
+          if(result.data.status =='success'){
+            console.log("Inside if")
+            const groupedCourses = {};
+
+            result.data.data.forEach(item => {
             if(!groupedCourses[item.course_name]){
               groupedCourses[item.course_name] ={
                 start_date: item.start_date,
@@ -43,7 +42,13 @@ function Mycourses() {
           setCourses(groupedCourses)
         }
     }
+
+        getCourses()
+        },[]
+    )
+    
   return <>
+  <NavbarSwitch />
       <div className="container mt-5">
 
   <h2 className="text-center mb-4">My Registered Courses</h2>

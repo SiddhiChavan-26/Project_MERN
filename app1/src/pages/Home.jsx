@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import { useNavigate } from "react-router"  
 import { getAllCourses } from '../service/commonServices'
+import NavbarSwitch from '../components/NavbarSwitch'
 
 export default function Home() {
      const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Home() {
 
 
     return <>
-        <Navbar />
+        <NavbarSwitch />
             <div className="container">
                 <div className="row">
                     {course.map(e => {

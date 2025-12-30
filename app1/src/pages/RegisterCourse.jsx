@@ -27,6 +27,9 @@ function RegisterCourse() {
         }
         }
     }
+
+
+    
   return <>
     <div className="container d-flex justify-content-center align-items-center vh-100">
         <div className="card shadow p-4 w-50">

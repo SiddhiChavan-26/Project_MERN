@@ -19,6 +19,7 @@ import Mycourses from "./pages/Mycourses"
 import VideoDisplay from "./pages/VideoDisplay"
 import ViewMore from './pages/ViewMore';
 import Home from "./pages/Home"
+import ChangePassword from "./pages/ChangePassword";
 
 
 
@@ -53,7 +54,6 @@ function App() {
           <Route path="/AddCourse" element={<AddCourse/>} />
           <Route path="/AllCourses" element={<AllCourses/>} />
           <Route path="/update-course/:id" element={<UpdateCourse />} />
-
 
           </Routes>
         </LoginContext.Provider>
