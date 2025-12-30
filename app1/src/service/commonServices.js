@@ -8,13 +8,13 @@ import config from './config'
 //   const response = await axios.post(URL, body)
 //   return response.data
 
-// // REGISTER
-// export async function registerUser(email, password, role) {
-//   const URL = config.BASE_URL + '/user/signUp'
-//   const body = { email, password, role }
-//   const response = await axios.post(URL, body)
-//   return response.data
-// }
+// REGISTER
+export async function registerUser(email, password, role) {
+  const URL = config.BASE_URL + '/user/signUp'
+  const body = { email, password, role }
+  const response = await axios.post(URL, body)
+  return response.data
+}
 
 
 //view courses
