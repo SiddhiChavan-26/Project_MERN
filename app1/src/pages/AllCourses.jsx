@@ -1,10 +1,7 @@
-
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { get_All_Courses, delete_Course } from "../service/courseService";
-import { ToastContainer, toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { get_All_Courses, deleteCourse } from "../service/coursesService";
 
 export default function AllCourses() {
     const [courses, setCourses] = useState([]);
@@ -19,16 +16,17 @@ export default function AllCourses() {
         if (res.status === 'success') setCourses(res.data);
     };
 
-   const handleDelete = async (id) => {
-  try {
-    const result = await deleteCourse(id);
-    toast.success("Course deleted successfully");
-    loadCourses(); // refresh list
-  } catch (err) {
-    toast.error("Error deleting course");
-  }
-};
+    const handleDelete = async (id) => {
+        try {
+            const result = await deleteCourse(id);
+            toast.success("Course deleted successfully");
 
+            await loadData();   // ✅ FIXED (refresh updated)
+
+        } catch (err) {
+            toast.error("Error deleting course");
+        }
+    };
 
     return (
         <div className="container mt-4">
@@ -59,12 +57,17 @@ export default function AllCourses() {
                                 <td>{course.video_expire_days} Days</td>
                                 <td>
                                     <div className="d-flex gap-2">
-                                        <button className="btn btn-warning btn-sm fw-bold" 
-                                            onClick={() => navigate(`/update-course/${course.course_id}`)}>
+                                        <button
+                                            className="btn btn-warning btn-sm fw-bold"
+                                            onClick={() => navigate(`/update-course/${course.course_id}`)}
+                                        >
                                             Update
                                         </button>
-                                        <button className="btn btn-danger btn-sm fw-bold" 
-                                            onClick={() => handleDelete(course.course_id)}>
+
+                                        <button
+                                            className="btn btn-danger btn-sm fw-bold"
+                                            onClick={() => handleDelete(course.course_id)}
+                                        >
                                             Delete
                                         </button>
                                     </div>
@@ -76,5 +79,4 @@ export default function AllCourses() {
             </div>
         </div>
     );
-
 }
