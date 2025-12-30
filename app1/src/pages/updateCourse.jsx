@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { getCourseById, updateCourse } from "../service/courseService";
 import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
 
 export default function UpdateCourse() {
-  const { course_id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [course, setCourse] = useState({
@@ -12,142 +13,100 @@ export default function UpdateCourse() {
     description: "",
     fees: "",
     start_date: "",
-    end_date: "",
-    video_expire_days: "",
-  });
+    end_date: "",  video_expire_days: "",});
 
-  // Load Course Data
+
   useEffect(() => {
-    const fetch = async () => {
-      const res = await getCourseById(course_id);
-      if (res.status === "success") {
-        setCourse(res.data);
-      } else {
-        toast.error("Failed to load course");
+    loadCourse();
+  }, [id]);
+
+  const loadCourse = async () => {
+    try {
+      const res = await getCourseById(id);
+
+      if (res.status !== "success") {
+        toast.error(res.error || "Course not found");
+        return;
       }
-    };
-    fetch();
-  }, [course_id]);
 
-  // Update Course
-  const onUpdate = async (e) => {
-    e.preventDefault();
+      const data = res.data;
 
-    const res = await updateCourse(course_id, course);
+      data.start_date = data.start_date?.split("T")[0];
+      data.end_date = data.end_date?.split("T")[0];
 
-    if (res.status === "success") {
-      toast.success("Course Updated Successfully!");
-      navigate("/courses");
-    } else {
-      toast.error("Update Failed!");
+      setCourse(data);
+
+    } catch (err) {
+      toast.error("Backend server unreachable");
+      console.log(err);
     }
   };
 
-  const formatInputDate = (str) => (str ? str.split(/[ T]/)[0] : "");
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await updateCourse(id, course);
+
+      if (res.status === "success") {
+        toast.success("Course Updated Successfully!");
+        navigate("/AllCourses");
+      } else {
+        toast.error(res.error || "Update failed");
+      }
+    } catch (err) {
+      toast.error("Backend server unreachable");
+      console.log(err);
+    }
+  };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center mt-5">
-      <div
-        className="card shadow-lg p-4 bg-white border-0"
-        style={{ width: "100%", maxWidth: "500px", borderRadius: "12px" }}
-      >
-        <h2 className="text-center mb-4 fw-light">Update Course</h2>
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="card shadow p-4" style={{ width: "450px" }}>
+        <h3 className="text-center mb-4">Update Course</h3>
 
-        <form onSubmit={onUpdate}>
-          <div className="mb-3">
-            <label className="form-label small fw-bold text-muted">
-              Course Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              value={course.course_name}
-              onChange={(e) =>
-                setCourse({ ...course, course_name: e.target.value })
-              }
-            />
-          </div>
+        <form onSubmit={handleUpdate}>
+          <label className="form-label">Course Name</label>
+          <input className="form-control mb-3"
+            value={course.course_name}
+            onChange={(e) => setCourse({ ...course, course_name: e.target.value })}
+          />
 
-          <div className="mb-3">
-            <label className="form-label small fw-bold text-muted">
-              Description
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              value={course.description}
-              onChange={(e) =>
-                setCourse({ ...course, description: e.target.value })
-              }
-            />
-          </div>
+          <label className="form-label">Description</label>
+          <textarea className="form-control mb-3"
+            value={course.description}
+            onChange={(e) => setCourse({ ...course, description: e.target.value })}
+          />
 
-          <div className="mb-3">
-            <label className="form-label small fw-bold text-muted">Fees</label>
-            <input
-              type="number"
-              className="form-control"
-              value={course.fees}
-              onChange={(e) =>
-                setCourse({ ...course, fees: e.target.value })
-              }
-            />
-          </div>
+          <label className="form-label">Fees</label>
+          <input className="form-control mb-3" type="number"
+            value={course.fees}
+            onChange={(e) => setCourse({ ...course, fees: e.target.value })}
+          />
 
-          <div className="mb-3">
-            <label className="form-label small fw-bold text-muted">
-              Start Date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              value={formatInputDate(course.start_date)}
-              onChange={(e) =>
-                setCourse({ ...course, start_date: e.target.value })
-              }
-            />
-          </div>
+          <label className="form-label">Start Date</label>
+          <input className="form-control mb-3" type="date"
+            value={course.start_date}
+            onChange={(e) => setCourse({ ...course, start_date: e.target.value })}
+          />
 
-          <div className="mb-3">
-            <label className="form-label small fw-bold text-muted">
-              End Date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              value={formatInputDate(course.end_date)}
-              onChange={(e) =>
-                setCourse({ ...course, end_date: e.target.value })
-              }
-            />
-          </div>
+          <label className="form-label">End Date</label>
+          <input className="form-control mb-3" type="date"
+            value={course.end_date}
+            onChange={(e) => setCourse({ ...course, end_date: e.target.value })}
+          />
 
-          <div className="mb-3">
-            <label className="form-label small fw-bold text-muted">
-              Video Expire Days
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              value={course.video_expire_days}
-              onChange={(e) =>
-                setCourse({
-                  ...course,
-                  video_expire_days: e.target.value,
-                })
-              }
-            />
-          </div>
+          <label className="form-label">Video Expire Days</label>
+          <input className="form-control mb-4" type="number"
+            value={course.video_expire_days}
+            onChange={(e) => setCourse({ ...course, video_expire_days: e.target.value })}
+          />
 
-          <button
-            type="submit"
-            className="btn w-100 text-white fw-bold py-2 mt-2"
-            style={{ backgroundColor: "#00d2ff", border: "none" }}
-          >
+          <button className="btn btn-info w-100 text-white fw-bold">
             Update Course
           </button>
         </form>
       </div>
+
     </div>
   );
 }

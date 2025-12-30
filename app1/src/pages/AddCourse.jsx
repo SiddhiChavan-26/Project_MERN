@@ -2,37 +2,53 @@ import React, { useState } from "react";
 import { newCourse } from "../service/courseService";
 import { toast } from "react-toastify";
 
+
 export default function AddCourse() {
-  const [course_Name, setCourseName] = useState("");
+  const [course_name, setCourseName] = useState("");
   const [description, setDescription] = useState("");
   const [fees, setFees] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [expireDays, setExpireDays] = useState("");
+  const [start_date, setStartDate] = useState("");
+  const [end_date, setEndDate] = useState("");
+  const [video_expire_days, setExpireDays] = useState("");
 
-  const course = async () => {
-    if (course_Name === "")
-      toast.warn("Course name must be entered");
-    else if (description === "")
-      toast.warn("Description must be entered");
-    else if (fees === "")
-      toast.warn("Fees must be entered");
-    else if (startDate === "")
-      toast.warn("Start date must be entered");
-    else if (endDate === "")
-      toast.warn("End date must be entered");
-    else if (expireDays === "")
-      toast.warn("Expire days must be entered");
-    else {
-      const result = await newCourse({
-        course_Name,description,fees,startDate,endDate,expireDays,
-      });
+
+  const addCourse = async () => {
+    
+    if (!course_name) return toast.warn("Course name must be entered");
+    if (!description) return toast.warn("Description must be entered");
+    if (!fees) return toast.warn("Fees must be entered");
+    if (!start_date) return toast.warn("Start date must be entered");
+    if (!end_date) return toast.warn("End date must be entered");
+    if (!video_expire_days) return toast.warn("Expire days must be entered");
+
+    
+    const body = {
+      course_name,
+      description,
+      fees,
+      start_date,
+      end_date,
+      video_expire_days,
+    };
+
+    try {
+      const result = await newCourse(body);
 
       if (result.status === "success") {
-        toast.success("New course added successfully");
+        toast.success("Course Added Successfully");
+
+    
+        setCourseName("");
+        setDescription("");
+        setFees("");
+        setStartDate("");
+        setEndDate("");
+        setExpireDays("");
       } else {
-        toast.error(result.error);
+        toast.error(result.error || "Something went wrong");
       }
+    } catch (error) {
+      toast.error("Server error");
     }
   };
 
@@ -54,6 +70,7 @@ export default function AddCourse() {
           type="text"
           className="form-control mb-3"
           placeholder="Enter description"
+
           onChange={(e) => setDescription(e.target.value)}
         />
 
@@ -83,11 +100,12 @@ export default function AddCourse() {
         <input
           type="number"
           className="form-control mb-4"
-          placeholder="Enter number of days"
+
+          value={video_expire_days}
           onChange={(e) => setExpireDays(e.target.value)}
         />
 
-        <button className="btn btn-info text-white w-100" onClick={course}>
+        <button className="btn btn-info text-white w-100" onClick={addCourse}>
           Add Course
         </button>
       </div>
