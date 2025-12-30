@@ -17,8 +17,7 @@ router.get('/all-courses', checkAuthorization,(req, res) => {
 router.post('/add', checkAuthorization,(request, response) => {
   const { course_name, description, fees, start_date, end_date, video_expire_days } = request.body;
 
-  const sql = `INSERT INTO courses(course_name, description, fees, start_date, end_date, video_expire_days)
-               VALUES (?, ?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO courses(course_name, description, fees, start_date, end_date, video_expire_days)VALUES (?, ?, ?, ?, ?, ?)`;
 
   pool.query(
     sql,
@@ -44,9 +43,7 @@ router.put('/update/:course_id', checkAuthorization,(req, res) => {
   const { course_id } = req.params;
   const { course_name, description, fees, start_date, end_date, video_expire_days } = req.body;
 
-  const sql = `UPDATE courses
-               SET course_name=?, description=?, fees=?, start_date=?, end_date=?, video_expire_days=?
-               WHERE course_id=?`;
+  const sql = `UPDATE courses  SET course_name=?, description=?, fees=?, start_date=?, end_date=?, video_expire_days=? WHERE course_id=?`;
 
   pool.query(
     sql,
@@ -98,9 +95,14 @@ router.get("/viewmore", (req, res) => {
   const sql = "SELECT course_name, start_date, end_date, fees FROM courses WHERE course_id = ?";
 
   pool.query(sql, [course_id], (error, data) => {
-    res.send(result.createResult(error, data));
-  });
-});
+
+    res.send(result.createResult(error, data))
+   
+  })
+})
+    
+  
+
 
 
 module.exports = router;

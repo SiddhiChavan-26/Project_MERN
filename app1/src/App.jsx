@@ -7,18 +7,19 @@ import UpdateCourse from "./pages/updateCourse";
 import AddCourse from "./pages/AddCourse"
 
 import About from "./pages/About"
+
+import ViewMore from "./pages/ViewMore"
 import GetAllVideos from './pages/GetAllVideos'
 import UpdateVideos from './pages/UpdateVideos'
 import AddVideo from "./pages/AddVideo"
 import Login from "./pages/Login"
+import Home from "./pages/Home"
 import Register from "./pages/Register"
 
 import { LoginContext } from "./pages/LoginContext"
 import RegisterCourse from "./pages/RegisterCourse"
 import Mycourses from "./pages/Mycourses"
 import VideoDisplay from "./pages/VideoDisplay"
-import ViewMore from './pages/ViewMore';
-import Home from "./pages/Home"
 import ChangePassword from "./pages/ChangePassword";
 
 
@@ -35,7 +36,8 @@ function App() {
 
         <Routes>
           <Route path='/home' element={<Home/>} />
-          <Route path="/" element={<Home /> } />
+          <Route path="/view-more/:course_id" element={<ViewMore />} />       
+         <Route path="/" element={<Home /> } />
           <Route path='/Login' element={<Login/>} />
           <Route path="/about" element={<About /> } />
           <Route path="/register" element={<Register />} />

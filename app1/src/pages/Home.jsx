@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import Navbar from '../components/Navbar'
 import {useState} from 'react'
 import { useNavigate } from "react-router"  
 import { getAllCourses } from '../service/commonServices'
 import NavbarSwitch from '../components/NavbarSwitch'
 
 export default function Home() {
-     const navigate = useNavigate();
+    const navigate = useNavigate();
     const[course, setCourse] = useState([])
     useEffect(()=>{
         console.log("All courses loaded !")
@@ -35,8 +34,9 @@ export default function Home() {
                                 <div className="card-body">
                                     <h5 className="card-title" style={{ height: "2rem" }}>{e.course_name}</h5>
                                     <h6 className="card-subtitle mb-2 text-body-secondary">Starts on : {e.start_date}</h6>
-                                    {/* <h6 className="card-subtitle mb-2 text-body-secondary">Rs. {e.price}</h6> */}
-                                    <button className="btn btn-primary" onClick={() => navigate("/view-more/1")}>View More</button>
+                                    <h6 className="card-subtitle mb-2 text-body-secondary">Rs. {e.price}</h6>
+                                    <button className="btn btn-primary" onClick={() => navigate(`/view-more/${course.course_id}`)}>View More
+                                    </button>
                                 </div>
                             </div>
                         </div>
