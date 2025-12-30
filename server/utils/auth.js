@@ -4,7 +4,7 @@ const config = require('./config')
 const result = require('./result')
 
 function authUser(req, res, next) {
-    const allAllowedURLs = ['/user/login', '/user/signUp','/user/all-active-courses','/student/register_to_course','/student/my-coursewith-videos']
+    const allAllowedURLs = ['/user/login', '/user/signUp','/user/all-active-courses']
     if(allAllowedURLs.includes(req.url)) next();
     else{
         const token = req.headers.token

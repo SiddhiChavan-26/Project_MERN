@@ -58,7 +58,7 @@ router.get("/my_courses/:name",(req,res)=>{
 //get all registered courses of a student along with valid videos -
 router.get("/my-coursewith-videos/:email",(req,res)=>{
     const {email} = req.params
-    const sql="SELECT c.course_name, c.start_date, c.end_date, v.added_at, v.youtube_url FROM courses c INNER JOIN videos v ON c.course_id = v.course_id INNER JOIN students s ON s.course_id= c.course_id WHERE email=? AND (start_date + video_expire_days) < CURDATE()"
+    const sql="SELECT c.course_name, c.start_date, c.end_date,v.video_id, v.added_at, v.youtube_url FROM courses c INNER JOIN videos v ON c.course_id = v.course_id INNER JOIN students s ON s.course_id= c.course_id WHERE email=? AND (start_date + video_expire_days) < CURDATE()"
     pool.query(sql,[email],(error,data)=>{
         res.send(result.createResult(error,data))
     })
@@ -71,6 +71,16 @@ router.put("/change-password",(req,res)=>{
     pool.query(sql,[password,email],(error,data)=>{
         res.send(result.createResult(error,data))
     })
+})
+
+//display video api
+router.get("/video/:video_id",(req, res) =>{
+    const { video_id } = req.params;
+    const sql = `SELECT title, youtube_url, added_at, description FROM videos WHERE video_id = ?`;
+    pool.query(sql, [video_id], (error, data) => {
+    res.send(result.createResult(error, data[0]));
+  });
+
 })
 
 module.exports = router

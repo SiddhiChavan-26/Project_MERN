@@ -10,6 +10,7 @@ import Mycourses from "./pages/Mycourses"
 // import {  useState} from "react"
 // import { LoginContext } from "./pages/LoginContext"
 import Login from "./pages/Login"
+import VideoDisplay from "./pages/VideoDisplay"
 
 
 // functional components
@@ -26,6 +27,7 @@ function App() {
           <Route path="/about" element={<About /> } />
           <Route path ="/registercourse" element={<RegisterCourse/>}/>
           <Route path="/mycourses" element={< Mycourses />}/>
+          <Route path="/video/:video_id" element={<VideoDisplay/>}/>
           <Route path='/GetAllVideos' element={<GetAllVideos/> } />
           <Route path="/update-video/:course_id/:video_id" element={<UpdateVideos />} />
           <Route path='/AddVideo' element={<AddVideo/>} />
