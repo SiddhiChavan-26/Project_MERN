@@ -1,5 +1,3 @@
-
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { get_All_Courses, delete_Course } from "../service/courseService";
 import { ToastContainer, toast } from "react-toastify";
