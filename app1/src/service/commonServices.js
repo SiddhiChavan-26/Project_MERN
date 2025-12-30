@@ -17,6 +17,7 @@ export async function registerUser(email, password, role) {
 }
 
 
+
 //view courses
 export async function viewmore(course_id) {
   const URL = config.BASE_URL + `/course/viewmore?course_id=${course_id}`;
@@ -35,8 +36,7 @@ export async function getAllCourses(){
 export async function loginUser(email, password) {
     const URL = config.BASE_URL + "/user/login"
     const body = { email, password }
-    // call the backend - use axios
-    const response = await axios.post(URL, body) // resolve the promise
+    const response = await axios.post(URL, body) 
     console.log(response)
     return response.data
 }

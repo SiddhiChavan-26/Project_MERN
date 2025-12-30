@@ -1,7 +1,7 @@
-
 import { Link, useNavigate } from 'react-router'
 import { loginUser } from '../service/commonServices'
 import { toast } from 'react-toastify'
+import { jwtDecode } from "jwt-decode"
 import { LoginContext } from './LoginContext'
 import React, { useContext, useState } from "react"
 
@@ -12,8 +12,8 @@ function Login() {
     const [password, setPassword] = useState('')// password
     const navigate = useNavigate()
     
-    // const { loginStatus, setLoginStatus } = useContext(LoginContext)
-    const [loginStatus, setLoginStatus] = useState('')
+    const { LoginStatus, setLoginStatus } = useContext(LoginContext)
+  
 
     const signin = async () => {
         console.log('Sign in button clicked')
@@ -28,12 +28,18 @@ function Login() {
             console.log(result)
             if (result.status == 'success') {
                 // dynamic navigation -> useNavigate()
-                sessionStorage.setItem('token', result.data.token)
-                sessionStorage.setItem('email', result.data.email)
+                console.log(result.data)
+                const token = result.data.token
+            
+                sessionStorage.setItem('token', token)
+
+                const decoded = jwtDecode(token)
+                sessionStorage.setItem('email',decoded.email)
+
                 setLoginStatus(true)
-                console.log(loginStatus)
-                navigate('/home')
+                console.log(LoginStatus)
                 toast.success('Login successful')
+                navigate('/home')
             }
             else
                 toast.error(result.error)
@@ -55,13 +61,14 @@ function Login() {
             <div className="mb-3">
                 <button className="btn btn-success" onClick={signin}>Signin</button>
             </div>
-
-            {<div>
+            <div>
                 Don't have an account? then to register <Link to='/register' >Click Here</Link>
-            </div>}
+            </div>
         </div>
     )
 }
+
+
 export default Login
 
 
