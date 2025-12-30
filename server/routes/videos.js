@@ -89,4 +89,13 @@ router.get('/enrolled-students',checkAuthorization, (req, res) => {
     })
 })
 
+
+//get the videos based on the course id (to show video in GetAllVideos by using filter)
+router.get('/all_videos/:course_id' , checkAuthorization, (req, res) => {
+    const {course_id} = req.params
+    const sql = `SELECT * FROM videos WHERE course_id = ? `
+    pool.query(sql, [course_id], (error, data) =>{
+        res.send(result.createResult(error, data))
+    })
+})
 module.exports = router

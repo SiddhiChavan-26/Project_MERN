@@ -62,3 +62,22 @@ export async function addNewVideo(course_id, title, youtube_url, description){
   console.log(response.data)
   return response.data
 }
+
+export async function delete_Video(video_id){
+  console.log('delete_Video called!')
+  const URL = config.BASE_URL + `/videos/delete/${video_id}`
+  const token = sessionStorage.getItem('token')
+  const headers = {token}
+  const response = await axios.delete(URL, {headers})
+  console.log(response.data)
+  return response.data
+}
+
+export async function getVideosByCourseId(course_id) {
+  const URL = config.BASE_URL + `/videos/all_videos/${course_id}`
+  const token = sessionStorage.getItem('token')
+  const headers = { token }
+  const response = await axios.get(URL, {headers})
+  console.log(response.data)
+  return response.data
+}
