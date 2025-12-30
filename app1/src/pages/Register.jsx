@@ -1,6 +1,6 @@
 // import React, { useState } from 'react'
 // import { Link, useNavigate } from 'react-router'
-// import { registerUser } from '../service/commonServices'
+// // import { registerUser } from '../service/commonServices'
 // import { toast } from 'react-toastify'
 
 // function Register() {

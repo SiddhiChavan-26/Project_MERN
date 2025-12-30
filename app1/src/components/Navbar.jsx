@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { LoginContext } from './../pages/LoginContext'
-import GetAllVideos from './../pages/GetAllVideos';
+import ChangePassword from '../pages/ChangePassword'
 
 function Navbar() {
     const navigate = useNavigate()
@@ -61,9 +61,9 @@ function Navbar() {
                                     </button>
 
                                     {/* DROPDOWN */}
-                                    <ul className="dropdown-menu dropdown-menu-end">
+                                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                         <li>
-                                            <Link className="dropdown-item" to="/change-password">
+                                            <Link className="dropdown-item" to="/ChangePassword">
                                                 Change Password
                                             </Link>
                                         </li>

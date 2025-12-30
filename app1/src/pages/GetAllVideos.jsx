@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import {useState, useEffect} from 'react'
 import get_videos from '../service/videoServices'
 import { useNavigate } from 'react-router'
+import { delete_Video } from '../service/videoServices'
+
 
 function GetAllVideos() {
 
@@ -20,9 +22,17 @@ function GetAllVideos() {
             }
         }
 
-        
         getVideos()
     } , [])
+
+    const deleteVideo = async (video_id) => {
+        console.log('delete called!')
+        const result = await delete_Video(video_id)
+        if(result.status === 'success'){
+          alert("Video deleted successfully !!")
+          setVideos(prev => prev.filter(v => v.video_id !== video_id))
+        }
+    }
 
 
 
@@ -72,7 +82,7 @@ function GetAllVideos() {
                 <button className="btn btn-warning btn-sm me-2"onClick={() => navigate(`/update-video/${v.course_id}/${v.video_id}`)}>
                   ✏️
                 </button>
-                <button className="btn btn-danger btn-sm">
+                <button className="btn btn-danger btn-sm" onClick={() => deleteVideo(v.video_id)}>
                   🗑️
                 </button>
               </td>
