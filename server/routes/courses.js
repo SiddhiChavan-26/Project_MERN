@@ -22,6 +22,15 @@ router.post('/add', (request, response) => {
   });
 });
 
+//get course code for update video
+router.get('/getCourse/:course_id', (req, res) =>{
+    const {course_id} = req.params
+    const sql = `SELECT * FROM courses WHERE course_id = ?`;
+
+    pool.query(sql, [course_id], (error, data)=>{
+        res.send(result.createResult(error, data))
+    })
+})
 
 router.put('/update/:course_id', (request, response) => {
   const { course_id } = request.params;
@@ -54,6 +63,23 @@ router.delete("/delete/:courseId", (req, res) => {
     res.send({ status: "success", message: "Course and its students deleted successfully" });
   });
 });
+
+//to get course id by course name to Add video
+router.get('/getCourseByName/:course_name', (req, res) => {
+  const {course_name} = req.params
+  const sql = `SELECT * FROM courses WHERE course_name = ?`
+  pool.query(sql, [course_name], (error, data) =>{
+    res.send(result.createResult(error, data))
+  })
+})
+
+router.get("/viewmore", (req, res) => {
+  const { course_id } = req.query
+  const sql = "SELECT course_name, start_date, end_date, fees FROM courses WHERE course_id = ?"
+  pool.query(sql, [course_id], (error, data) => {
+    res.send(result.createResult(error, data))
+  })
+})
 
 
 
