@@ -7,10 +7,12 @@ import { delete_Video } from '../service/videoServices'
 import AdminNavbar from '../components/AdminNavbar'
 import NavbarSwitch from '../components/NavbarSwitch'
 import { getVideosByCourseId } from '../service/videoServices'
+import { get_All_Courses } from '../service/coursesService'
 
 function GetAllVideos() {
 
   const [videos, setVideos] = useState([])
+  const [courses, setCourses] = useState([])
   const [selectedCourse, setSelectedCourse] = useState('')
 
   const navigate = useNavigate()
@@ -26,13 +28,21 @@ function GetAllVideos() {
             }
         }
 
+        const loadCourses = async () => {
+        const result = await get_All_Courses()
+        if (result.status === 'success') {
+            setCourses(result.data)
+        }
+        }
+
         getVideos()
+        loadCourses()
     } , [])
 
         const handleCourseFilter = async (course_id) => {
             setSelectedCourse(course_id)
             console.log(course_id)
-            // All Courses selected
+            
             if (course_id === '') {
               const result = await get_videos()
               if (result.status === 'success') {
@@ -41,7 +51,6 @@ function GetAllVideos() {
               return
             }
 
-            // Specific course selected
             const result = await getVideosByCourseId(course_id)
             if (result.status === 'success') {
               console.log(result.data)
@@ -71,11 +80,12 @@ function GetAllVideos() {
         <label className="form-label fw-bold">Filter by Course</label>
         <select className="form-select w-25" value={selectedCourse} onChange={(e) => handleCourseFilter(e.target.value)}>
           <option value="">All Courses</option>
-          <option value="1">C Programming</option>
-          <option value="4">Python</option>
-          <option value="3">Java</option>
-          <option value="5">Web Development</option>
-          <option value="7">GEN AI</option>
+
+            {courses.map(course => (
+                <option key={course.course_id} value={course.course_id}>
+                    {course.course_name}
+                </option>
+            ))}
         </select>
       </div>
 
