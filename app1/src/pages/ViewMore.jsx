@@ -11,12 +11,8 @@ function ViewMore() {
   useEffect(()=>{
     console.log("useEffect called()");
     console.log(course);
-    if(course_id){
-    fetchCourse()}
-  },[course_id])
 
-
-  const fetchCourse =async ()=>{
+    const fetchCourse =async ()=>{
     console.log("fetchcourse() called");
     const result =await viewmore(course_id)
     console.log("result:",result);
@@ -25,7 +21,13 @@ function ViewMore() {
       setCourse(result.data[0])
     }
     
-  }
+    }
+    if(course_id){
+    fetchCourse()}
+  },[course_id])
+
+
+  
   
   if (!course) {
     return <h4 className="text-center mt-5">Loading...</h4>;
