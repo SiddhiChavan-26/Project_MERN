@@ -35,8 +35,7 @@ function App() {
         <LoginContext.Provider value={{LoginStatus, setLoginStatus}}> 
 
         <Routes>
-          <Route path='/home' element={<Home/>} />
-          <Route path="/view-more/:course_id" element={<ViewMore />} />       
+          <Route path='/home' element={<Home/>} />    
          <Route path="/" element={<Home /> } />
           <Route path='/Login' element={<Login/>} />
           <Route path="/about" element={<About /> } />
