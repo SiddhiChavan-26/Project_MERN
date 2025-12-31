@@ -23,8 +23,6 @@ import VideoDisplay from "./pages/VideoDisplay"
 import ChangePassword from "./pages/ChangePassword";
 
 
-
-
 function App() {
 
     const [LoginStatus, setLoginStatus] = useState(false)   
@@ -35,21 +33,20 @@ function App() {
         <LoginContext.Provider value={{LoginStatus, setLoginStatus}}> 
 
         <Routes>
-          <Route path='/home' element={<Home/>} />
-          <Route path="/view-more/:course_id" element={<ViewMore />} />       
-         <Route path="/" element={<Home /> } />
-          <Route path='/Login' element={<Login/>} />
-          <Route path="/about" element={<About /> } />
-          <Route path="/register" element={<Register />} />
+        <Route path='/home' element={<Home/>} />     
+        <Route path="/" element={<Home /> } />
+        <Route path='/Login' element={<Login/>} />
+        <Route path="/about" element={<About /> } />
+        <Route path="/register" element={<Register />} />
 
-          <Route path="/viewmore/:course_id" element={<ViewMore />} />  
+        <Route path="/viewmore/:course_id" element={<ViewMore /> } />  
 
-          <Route path ="/registercourse/:course_id" element={<RegisterCourse/>}/>
-          <Route path="/mycourses" element={< Mycourses />}/>
-          <Route path="/video/:video_id" element={<VideoDisplay/>}/>
+        <Route path ="/registercourse/:course_id" element={<RegisterCourse/>}/>
+        <Route path="/mycourses" element={< Mycourses />}/>
+        <Route path="/video/:video_id" element={<VideoDisplay/>}/>
 
-          <Route path='/GetAllVideos' element={<GetAllVideos/> } />
-          <Route path="/update-video/:course_id/:video_id" element={<UpdateVideos />} />
+        <Route path='/GetAllVideos' element={<GetAllVideos/> } />
+        <Route path="/update-video/:course_id/:video_id" element={<UpdateVideos />} />
           <Route path='/AddVideo' element={<AddVideo/>} />
           <Route path='/ChangePassword' element={<ChangePassword/>} />
     
