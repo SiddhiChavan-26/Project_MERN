@@ -23,8 +23,6 @@ import VideoDisplay from "./pages/VideoDisplay"
 import ChangePassword from "./pages/ChangePassword";
 import { Navigate } from "react-router";
 
-
-
 function App() {
 
     const [LoginStatus, setLoginStatus] = useState(false)   
@@ -35,12 +33,11 @@ function App() {
         <LoginContext.Provider value={{LoginStatus, setLoginStatus}}> 
 
         <Routes>
-          <Route path='/home' element={<Home/>} />
-          <Route path="/view-more/:course_id" element={<ViewMore />} />       
-         <Route path="/" element={<Home /> } />
-          <Route path='/Login' element={<Login/>} />
-          <Route path="/about" element={<About /> } />
-          <Route path="/register" element={<Register />} />
+        <Route path='/home' element={<Home/>} />     
+        <Route path="/" element={<Home /> } />
+        <Route path='/Login' element={<Login/>} />
+        <Route path="/about" element={<About /> } />
+        <Route path="/register" element={<Register />} />
 
           <Route path="/viewmore/:course_id" element={LoginStatus ? <ViewMore /> : <Navigate to = '/' /> } />  
 
