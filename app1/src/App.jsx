@@ -37,7 +37,6 @@ function App() {
         <Route path='/Login' element={<Login/>} />
         <Route path="/about" element={<About /> } />
         <Route path="/register" element={<Register />} />
-
           <Route path="/viewmore/:course_id" element={LoginStatus ? <ViewMore /> : <Navigate to = '/' /> } />  
 
           <Route path ="/registercourse/:course_id" element={LoginStatus ? <RegisterCourse/> : <Navigate to = '/' />}/>
