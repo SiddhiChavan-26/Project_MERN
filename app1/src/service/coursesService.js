@@ -4,8 +4,14 @@ import config from "./config";
 
 export const get_All_Courses = async () => {
     try {
-        const response = await axios.get(`${config.BASE_URL}/course/all-courses`);
-        return response.data; 
+        console.log("get_All_Courses called!");
+        const URL = config.BASE_URL + `/course/all-courses`;
+        const token = sessionStorage.getItem('token')
+        const headers = { token }
+        const response = await axios.get(URL, {headers});
+        return response.data;
+        // const response = await axios.get(`${config.BASE_URL}/course/all-courses`);
+        // return response.data;
     } catch (error) {
         console.error("Service Error:", error);
         throw error;
@@ -13,21 +19,29 @@ export const get_All_Courses = async () => {
 };
 
 export async function newCourse(courseData) {
-    const response = await axios.post(`${config.BASE_URL}/course/add`, courseData);
+    const token = sessionStorage.getItem('token')
+    const headers = { token }
+    const response = await axios.post(`${config.BASE_URL}/course/add`, courseData, {headers});
     return response.data;
 }
 
 export async function getCourseById(id) {
-    const response = await axios.get(`${config.BASE_URL}/course/details/${id}`);
+    const token = sessionStorage.getItem('token')
+    const headers = { token }
+    const response = await axios.get(`${config.BASE_URL}/course/details/${id}`, {headers});
     return response.data;
 }
 
 export async function updateCourse(id, body) {
-    const response = await axios.put(`${config.BASE_URL}/course/update/${id}`, body);
+    const token = sessionStorage.getItem('token')
+    const headers = { token }
+    const response = await axios.put(`${config.BASE_URL}/course/update/${id}`, body, {headers});
     return response.data;
 }
 
 export async function deleteCourse(courseId) {
-    const response = await axios.delete(`${config.BASE_URL}/course/delete/${courseId}`);
+    const token = sessionStorage.getItem('token')
+    const headers = { token }
+    const response = await axios.delete(`${config.BASE_URL}/course/delete/${courseId}`, {headers});
     return response.data;
 }

@@ -1,8 +1,8 @@
-
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { getCourseById, updateCourse } from "../service/coursesService";
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
+import NavbarSwitch from "../components/NavbarSwitch";
 
 export default function UpdateCourse() {
   const { id } = useParams();
@@ -17,30 +17,31 @@ export default function UpdateCourse() {
 
 
   useEffect(() => {
+        const loadCourse = async () => {
+        try {
+          const res = await getCourseById(id);
+
+          if (res.status !== "success") {
+            toast.error(res.error || "Course not found");
+            return;
+          }
+
+          const data = res.data;
+
+          data.start_date = data.start_date?.split("T")[0];
+          data.end_date = data.end_date?.split("T")[0];
+
+          setCourse(data);
+
+        } catch (err) {
+          toast.error("Backend server unreachable");
+          console.log(err);
+        }
+  };
     loadCourse();
   }, [id]);
 
-  const loadCourse = async () => {
-    try {
-      const res = await getCourseById(id);
-
-      if (res.status !== "success") {
-        toast.error(res.error || "Course not found");
-        return;
-      }
-
-      const data = res.data;
-
-      data.start_date = data.start_date?.split("T")[0];
-      data.end_date = data.end_date?.split("T")[0];
-
-      setCourse(data);
-
-    } catch (err) {
-      toast.error("Backend server unreachable");
-      console.log(err);
-    }
-  };
+ 
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -60,6 +61,8 @@ export default function UpdateCourse() {
   };
 
   return (
+    <>
+    <NavbarSwitch/>
     <div className="container mt-5 d-flex justify-content-center">
       <div className="card shadow p-4" style={{ width: "450px" }}>
         <h3 className="text-center mb-4">Update Course</h3>
@@ -108,5 +111,6 @@ export default function UpdateCourse() {
       </div>
 
     </div>
+    </>
   );
 }

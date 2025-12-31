@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { newCourse } from "../service/coursesService";
 import { toast } from "react-toastify";
+import NavbarSwitch from "../components/NavbarSwitch";
 
 export default function AddCourse() {
   const [course_name, setCourseName] = useState("");
@@ -20,7 +21,7 @@ export default function AddCourse() {
     if (!end_date) return toast.warn("End date must be entered");
     if (!video_expire_days) return toast.warn("Expire days must be entered");
 
-    
+   
     const body = {
       course_name,
       description,
@@ -36,7 +37,7 @@ export default function AddCourse() {
       if (result.status === "success") {
         toast.success("Course Added Successfully");
 
-        
+       
         setCourseName("");
         setDescription("");
         setFees("");
@@ -47,11 +48,14 @@ export default function AddCourse() {
         toast.error(result.error || "Something went wrong");
       }
     } catch (error) {
+      console.log(error)
       toast.error("Server error");
     }
   };
 
   return (
+    <>
+    <NavbarSwitch/>
     <div className="container col-md-6 mt-4">
       <div className="card shadow p-4">
         <h3 className="text-center mb-4">Add New Course</h3>
@@ -107,5 +111,6 @@ export default function AddCourse() {
         </button>
       </div>
     </div>
+    </>
   );
 }

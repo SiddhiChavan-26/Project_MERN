@@ -10,16 +10,18 @@ const { authUser, checkAuthorization } = require('./utils/auth');
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-// app.use(authUser); // uncomment if you want authentication globally
 
-// Routes
-app.use('/course', coursesRouter);
-app.use('/user', userRouter);
-app.use('/videos', videosRouter);
-app.use("/student", studentRouter);
+app.use(cors())
+app.use(express.json())
+app.use(authUser)
+
+
+app.use('/course',coursesRouter)
+app.use('/user',userRouter)
+app.use('/videos', videosRouter)
+app.use("/student",studentRouter)
+
+
 
 // Start server
 app.listen(4000, 'localhost', () => {
