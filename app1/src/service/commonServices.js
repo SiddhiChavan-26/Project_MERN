@@ -12,7 +12,7 @@ export async function registerUser(email, password, role) {
 export async function viewmore(course_id) {
   console.log("viewmore() called");
   console.log("course_id:-",course_id);
-  const URL = config.BASE_URL + `/course/viewmore/${course_id}`;
+  const URL = config.BASE_URL +`/course/viewmore/${course_id}`;
   const token = sessionStorage.getItem("token")
   const headers = {
     token
