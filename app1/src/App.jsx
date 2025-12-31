@@ -1,65 +1,60 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import {  useState } from "react"
+import { Routes, Route} from "react-router";
 import { ToastContainer } from "react-toastify";
-
-import { LoginContext } from "./pages/LoginContext";
-
-// Page Components
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 
 import AllCourses from "./pages/AllCourses";
 import UpdateCourse from "./pages/UpdateCourse";
 import AddCourse from "./pages/AddCourse";
 
-import GetAllVideos from "./pages/GetAllVideos";
-import UpdateVideos from "./pages/UpdateVideos";
-import AddVideo from "./pages/AddVideo";
+import About from "./pages/About"
 
+import ViewMore from "./pages/ViewMore"
+import GetAllVideos from './pages/GetAllVideos'
+import UpdateVideos from './pages/UpdateVideos'
+import AddVideo from "./pages/AddVideo"
+import Login from "./pages/Login"
+import Home from "./pages/Home"
+import Register from "./pages/Register"
+
+import { LoginContext } from "./pages/LoginContext"
+import RegisterCourse from "./pages/RegisterCourse"
+import Mycourses from "./pages/Mycourses"
+import VideoDisplay from "./pages/VideoDisplay"
 import ChangePassword from "./pages/ChangePassword";
-
-import RegisterCourse from "./pages/RegisterCourse";
-import Mycourses from "./pages/Mycourses";
-import ViewMore from "./pages/ViewMore";
+import { Navigate } from "react-router";
 
 function App() {
 
   const [LoginStatus, setLoginStatus] = useState(false);
 
   return (
-    <>
-      <LoginContext.Provider value={{ LoginStatus, setLoginStatus }}>
+    <>  
+        <LoginContext.Provider value={{LoginStatus, setLoginStatus}}> 
+
         <Routes>
+        <Route path='/home' element={<Home/>} />     
+        <Route path="/" element={<Home /> } />
+        <Route path='/Login' element={<Login/>} />
+        <Route path="/about" element={<About /> } />
+        <Route path="/register" element={<Register />} />
 
-          {/* Home & Auth Routes */}
-          <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/viewmore/:course_id" element={LoginStatus ? <ViewMore /> : <Navigate to = '/' /> } />  
 
-          {/* Courses */}
-          <Route path="/AddCourse" element={<AddCourse />} />
-          <Route path="/AllCourses" element={<AllCourses />} />
-          <Route path="/update-course/:id" element={<UpdateCourse />} />
-          <Route path="/view-more/:course_id" element={<ViewMore />} />
+          <Route path ="/registercourse/:course_id" element={LoginStatus ? <RegisterCourse/> : <Navigate to = '/' />}/>
+          <Route path="/mycourses" element={LoginStatus ? < Mycourses /> : <Navigate to = '/' />}/>
+          <Route path="/video/:video_id" element={LoginStatus ? <VideoDisplay/> : <Navigate to = '/' />}/>
 
-          {/* Students */}
-          <Route path="/registercourse" element={<RegisterCourse />} />
-          <Route path="/mycourses" element={<Mycourses />} />
+          <Route path='/GetAllVideos' element={LoginStatus ? <GetAllVideos/> : <Navigate to = '/' />} />
+          <Route path="/update-video/:course_id/:video_id" element={LoginStatus ? <UpdateVideos /> : <Navigate to = '/' />} />
+          <Route path='/AddVideo' element={LoginStatus ? <AddVideo/> : <Navigate to = '/' />} />
+          <Route path='/ChangePassword' element={LoginStatus ? <ChangePassword/> : <Navigate to = '/' />} />
+    
+          <Route path="/AddCourse" element={LoginStatus ? <AddCourse/> : <Navigate to = '/' />}/>
+          <Route path="/AllCourses" element={LoginStatus ? <AllCourses/> : <Navigate to = '/' />} />
+          <Route path="/update-course/:id" element={LoginStatus ? <UpdateCourse />  : <Navigate to = '/' />} />
 
-          {/* Videos */}
-          <Route path="/GetAllVideos" element={<GetAllVideos />} />
-          <Route path="/update-video/:course_id/:video_id" element={<UpdateVideos />} />
-          <Route path="/AddVideo" element={<AddVideo />} />
-
-          {/* Settings */}
-          <Route path="/ChangePassword" element={<ChangePassword />} />
-
-        </Routes>
-      </LoginContext.Provider>
+          </Routes>
+        </LoginContext.Provider>
 
       <ToastContainer />
     </>

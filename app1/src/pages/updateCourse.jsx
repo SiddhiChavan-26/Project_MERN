@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { getCourseById, updateCourse } from "../service/courseService";
 import { toast } from "react-toastify";
+import { useParams, useNavigate } from "react-router";
+import React from "react";
+import NavbarSwitch from "../components/NavbarSwitch";
+
 
 export default function UpdateCourse({ id, onBack }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState({
     course_name: "",
     description: "",
@@ -13,27 +19,31 @@ export default function UpdateCourse({ id, onBack }) {
   });
 
   useEffect(() => {
+        const loadCourse = async () => {
+        try {
+          const res = await getCourseById(id);
+
+          if (res.status !== "success") {
+            toast.error(res.error || "Course not found");
+            return;
+          }
+
+          const data = res.data;
+
+          data.start_date = data.start_date?.split("T")[0];
+          data.end_date = data.end_date?.split("T")[0];
+
+          setCourse(data);
+
+        } catch (err) {
+          toast.error("Backend server unreachable");
+          console.log(err);
+        }
+  };
     loadCourse();
   }, [id]);
 
-  const loadCourse = async () => {
-    try {
-      const res = await getCourseById(id);
-      if (res.status !== "success") {
-        toast.error("Course not found");
-        return;
-      }
 
-      const data = res.data;
-      // Formatting dates for the HTML5 date input
-      data.start_date = data.start_date?.split("T")[0];
-      data.end_date = data.end_date?.split("T")[0];
-
-      setCourse(data);
-    } catch {
-      toast.error("Server unreachable - check if token is required");
-    }
-  };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -51,7 +61,9 @@ export default function UpdateCourse({ id, onBack }) {
   };
 
   return (
-    /* CENTERING WRAPPER: Centers the update card perfectly on the page */
+    <>
+    <NavbarSwitch/>
+    
     <div style={{
       display: 'flex',
       justifyContent: 'center',
@@ -142,5 +154,6 @@ export default function UpdateCourse({ id, onBack }) {
         </form>
       </div>
     </div>
+    </>
   );
 }

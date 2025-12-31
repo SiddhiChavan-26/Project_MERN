@@ -1,10 +1,9 @@
 import { Link, useNavigate } from 'react-router'
 import { loginUser } from '../service/commonServices'
 import { toast } from 'react-toastify'
-import { jwtDecode } from "jwt-decode"
-import { LoginContext } from './LoginContext'
 import React, { useContext, useState } from "react"
-
+import { LoginContext } from './LoginContext';
+import { jwtDecode } from "jwt-decode"
 
 function Login() {
     // Destructuring of array
@@ -35,7 +34,7 @@ function Login() {
 
                 const decoded = jwtDecode(token)
                 sessionStorage.setItem('email',decoded.email)
-
+                sessionStorage.setItem('role',decoded.role)
                 setLoginStatus(true)
                 console.log(LoginStatus)
                 toast.success('Login successful')

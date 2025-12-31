@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { newCourse } from "../service/courseService";
+import { newCourse } from "../service/coursesService";
 import { toast } from "react-toastify";
+import NavbarSwitch from "../components/NavbarSwitch";
 
 export default function AddCourse() {
   const [course_name, setCourseName] = useState("");
@@ -10,12 +11,17 @@ export default function AddCourse() {
   const [end_date, setEndDate] = useState("");
   const [video_expire_days, setExpireDays] = useState("");
 
-  const addCourse = async () => {
-    // Validation
-    if (!course_name || !description || !fees || !start_date || !end_date || !video_expire_days) {
-      return toast.warn("Please fill all fields");
-    }
 
+  const addCourse = async () => {
+
+    if (!course_name) return toast.warn("Course name must be entered");
+    if (!description) return toast.warn("Description must be entered");
+    if (!fees) return toast.warn("Fees must be entered");
+    if (!start_date) return toast.warn("Start date must be entered");
+    if (!end_date) return toast.warn("End date must be entered");
+    if (!video_expire_days) return toast.warn("Expire days must be entered");
+
+   
     const body = {
       course_name,
       description,
@@ -26,11 +32,12 @@ export default function AddCourse() {
     };
 
     try {
-      // API call: ensure your service/courseService.js doesn't crash without a token
       const result = await newCourse(body);
 
       if (result.status === "success") {
         toast.success("Course Added Successfully");
+
+       
         setCourseName("");
         setDescription("");
         setFees("");
@@ -41,65 +48,69 @@ export default function AddCourse() {
         toast.error(result.error || "Something went wrong");
       }
     } catch (error) {
-      toast.error("Server error - check if API allows access without token");
+      console.log(error)
+      toast.error("Server error");
     }
   };
 
   return (
-    /* STYLING FIX: inline styles to center the form on the page */
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '80vh', // Centers vertically
-      width: '100%'
-    }}>
-      <div className="card shadow p-4" style={{ width: '100%', maxWidth: '600px' }}>
+    <>
+    <NavbarSwitch/>
+    <div className="container col-md-6 mt-4">
+      <div className="card shadow p-4">
         <h3 className="text-center mb-4">Add New Course</h3>
 
-        <div className="mb-3">
-          <label className="form-label">Course Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={course_name}
-            onChange={(e) => setCourseName(e.target.value)}
-          />
-        </div>
+        <label>Course Name</label>
+        <input
+          className="form-control mb-3"
+          value={course_name}
+          onChange={(e) => setCourseName(e.target.value)}
+        />
 
-        <div className="mb-3">
-          <label className="form-label">Description</label>
-          <textarea
-            className="form-control"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
+        <label>Description</label>
+        <input
+          className="form-control mb-3"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
 
-        <div className="row mb-3">
-          <div className="col">
-            <label className="form-label">Fees</label>
-            <input type="number" className="form-control" value={fees} onChange={(e) => setFees(e.target.value)} />
-          </div>
-          <div className="col">
-            <label className="form-label">Expire Days</label>
-            <input type="number" className="form-control" value={video_expire_days} onChange={(e) => setExpireDays(e.target.value)} />
-          </div>
-        </div>
+        <label>Fees</label>
+        <input
+          type="number"
+          className="form-control mb-3"
+          value={fees}
+          onChange={(e) => setFees(e.target.value)}
+        />
 
-        <div className="row mb-4">
-          <div className="col">
-            <label className="form-label">Start Date</label>
-            <input type="date" className="form-control" value={start_date} onChange={(e) => setStartDate(e.target.value)} />
-          </div>
-          <div className="col">
-            <label className="form-label">End Date</label>
-            <input type="date" className="form-control" value={end_date} onChange={(e) => setEndDate(e.target.value)} />
-          </div>
-        </div>
+        <label>Start Date</label>
+        <input
+          type="date"
+          className="form-control mb-3"
+          value={start_date}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
 
-        <button className="btn btn-success w-100 mb-2" onClick={addCourse}>Add Course</button>
+        <label>End Date</label>
+        <input
+          type="date"
+          className="form-control mb-3"
+          value={end_date}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+
+        <label>Video Expire Days</label>
+        <input
+          type="number"
+          className="form-control mb-4"
+          value={video_expire_days}
+          onChange={(e) => setExpireDays(e.target.value)}
+        />
+
+        <button className="btn btn-info text-white w-100" onClick={addCourse}>
+          Add Course
+        </button>
       </div>
     </div>
+    </>
   );
 }

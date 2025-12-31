@@ -5,14 +5,14 @@ const coursesRouter = require('./routes/courses');
 const userRouter = require('./routes/users');
 const videosRouter = require('./routes/videos');
 const studentRouter = require("./routes/student");
+
 const { authUser, checkAuthorization } = require('./utils/auth');
+
 
 const app = express();
 
-
 app.use(cors())
 app.use(express.json())
-app.use(cors())
 app.use(authUser)
 
 

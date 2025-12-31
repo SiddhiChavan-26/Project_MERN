@@ -4,11 +4,15 @@ import {useState, useEffect} from 'react'
 import get_videos from '../service/videoServices'
 import { useNavigate } from 'react-router'
 import { delete_Video } from '../service/videoServices'
-
+import AdminNavbar from '../components/AdminNavbar'
+import NavbarSwitch from '../components/NavbarSwitch'
+import { getVideosByCourseId } from '../service/videoServices'
 
 function GetAllVideos() {
 
   const [videos, setVideos] = useState([])
+  const [selectedCourse, setSelectedCourse] = useState('')
+
   const navigate = useNavigate()
 
     useEffect(() => {
@@ -25,6 +29,27 @@ function GetAllVideos() {
         getVideos()
     } , [])
 
+        const handleCourseFilter = async (course_id) => {
+            setSelectedCourse(course_id)
+            console.log(course_id)
+            // All Courses selected
+            if (course_id === '') {
+              const result = await get_videos()
+              if (result.status === 'success') {
+                setVideos(result.data)
+              }
+              return
+            }
+
+            // Specific course selected
+            const result = await getVideosByCourseId(course_id)
+            if (result.status === 'success') {
+              console.log(result.data)
+              setVideos(result.data)
+            }
+        }
+
+
     const deleteVideo = async (video_id) => {
         console.log('delete called!')
         const result = await delete_Video(video_id)
@@ -38,17 +63,19 @@ function GetAllVideos() {
 
   return (
   <>
-    <Navbar />
+    <NavbarSwitch/>
     
     <div className="container mt-4">
        <h1>All videos</h1>
       <div className="mb-3">
         <label className="form-label fw-bold">Filter by Course</label>
-        <select className="form-select w-25">
+        <select className="form-select w-25" value={selectedCourse} onChange={(e) => handleCourseFilter(e.target.value)}>
           <option value="">All Courses</option>
-          <option value=" ">MERN</option>
-          <option value= "">Python</option>
-
+          <option value="1">C Programming</option>
+          <option value="4">Python</option>
+          <option value="3">Java</option>
+          <option value="5">Web Development</option>
+          <option value="7">GEN AI</option>
         </select>
       </div>
 
