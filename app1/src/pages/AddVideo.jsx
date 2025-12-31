@@ -64,7 +64,8 @@ function AddVideo() {
                     <option value=""disabled hidden>Select a course</option> 
                     <option value="Java">Java</option> 
                     <option value="GEN AI">GEN AI</option> 
-                    <option value="Web Development">Web developement</option> 
+                    <option value="Web Development">Web developement</option>
+                    <option value='Python'>Python</option>
                 </select> 
             </div>
 

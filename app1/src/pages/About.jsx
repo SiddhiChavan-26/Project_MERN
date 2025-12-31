@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import './About.css';
+import NavbarSwitch from '../components/NavbarSwitch';
 
 function About() {
 
@@ -22,7 +23,7 @@ function About() {
 
   return (
     <div>
-      <Navbar />
+      <NavbarSwitch />
 
       <div className="container mt-5">
 

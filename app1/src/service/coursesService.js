@@ -4,14 +4,14 @@ import config from "./config";
 
 export const get_All_Courses = async () => {
     try {
-        console.log("get_All_Courses called!"); 
-        const URL = config.BASE_URL + `/course/all-courses`; 
+        console.log("get_All_Courses called!");
+        const URL = config.BASE_URL + `/course/all-courses`;
         const token = sessionStorage.getItem('token')
         const headers = { token }
-        const response = await axios.get(URL, {headers}); 
-        return response.data; 
+        const response = await axios.get(URL, {headers});
+        return response.data;
         // const response = await axios.get(`${config.BASE_URL}/course/all-courses`);
-        // return response.data; 
+        // return response.data;
     } catch (error) {
         console.error("Service Error:", error);
         throw error;

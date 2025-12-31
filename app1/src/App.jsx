@@ -3,8 +3,8 @@ import { Routes, Route} from "react-router";
 import { ToastContainer } from "react-toastify";
 
 import AllCourses from "./pages/AllCourses";
-import UpdateCourse from "./pages/updateCourse";
-import AddCourse from "./pages/AddCourse"
+import UpdateCourse from "./pages/UpdateCourse";
+import AddCourse from "./pages/AddCourse";
 
 import About from "./pages/About"
 
@@ -23,24 +23,20 @@ import VideoDisplay from "./pages/VideoDisplay"
 import ChangePassword from "./pages/ChangePassword";
 import { Navigate } from "react-router";
 
-
-
 function App() {
 
-    const [LoginStatus, setLoginStatus] = useState(false)   
+  const [LoginStatus, setLoginStatus] = useState(false);
 
-  
   return (
     <>  
         <LoginContext.Provider value={{LoginStatus, setLoginStatus}}> 
 
         <Routes>
-          <Route path='/home' element={<Home/>} />    
-         <Route path="/" element={<Home /> } />
-          <Route path='/Login' element={<Login/>} />
-          <Route path="/about" element={<About /> } />
-          <Route path="/register" element={<Register />} />
-
+        <Route path='/home' element={<Home/>} />     
+        <Route path="/" element={<Home /> } />
+        <Route path='/Login' element={<Login/>} />
+        <Route path="/about" element={<About /> } />
+        <Route path="/register" element={<Register />} />
           <Route path="/viewmore/:course_id" element={LoginStatus ? <ViewMore /> : <Navigate to = '/' /> } />  
 
           <Route path ="/registercourse/:course_id" element={LoginStatus ? <RegisterCourse/> : <Navigate to = '/' />}/>
