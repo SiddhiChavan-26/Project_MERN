@@ -78,4 +78,7 @@ router.get("/video/:video_id",(req, res) =>{
   });
 
 })
+
+//get all students
+router.get("")
 module.exports = router

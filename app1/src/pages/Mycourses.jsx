@@ -22,7 +22,7 @@ function Mycourses() {
           return
         }
         const result = await getMycourses(email)
-        console.log("result is ",result);
+        console.log("result is ",result.data);
           console.log("before if")
         if(result.data.status =='success'){
           console.log("Inside if")
