@@ -21,7 +21,7 @@ export default function AddCourse() {
     if (!end_date) return toast.warn("End date must be entered");
     if (!video_expire_days) return toast.warn("Expire days must be entered");
 
-    
+   
     const body = {
       course_name,
       description,
@@ -37,7 +37,7 @@ export default function AddCourse() {
       if (result.status === "success") {
         toast.success("Course Added Successfully");
 
-        
+       
         setCourseName("");
         setDescription("");
         setFees("");

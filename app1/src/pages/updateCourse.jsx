@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from "react-router";
 import { getCourseById, updateCourse } from "../service/coursesService";
 import { toast } from "react-toastify";
@@ -42,7 +41,7 @@ export default function UpdateCourse() {
     loadCourse();
   }, [id]);
 
-  
+ 
 
   const handleUpdate = async (e) => {
     e.preventDefault();

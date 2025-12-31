@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { get_All_Courses, deleteCourse } from "../service/coursesService";
+import NavbarSwitch from "../components/NavbarSwitch";
 
 export default function AllCourses() {
     const [courses, setCourses] = useState([]);
@@ -37,13 +38,14 @@ export default function AllCourses() {
         loadData();
     }, []);
 
-    
+   
 
 
     const handleDelete = async (id) => {
         try {
             await deleteCourse(id);
             toast.success("Course deleted successfully");
+            setCourses(prev => prev.filter(c => c.course_id !== id));
             // loadData();
         } catch (err) {
             console.log(err)
@@ -52,6 +54,8 @@ export default function AllCourses() {
     };
 
     return (
+        <>
+        <NavbarSwitch/>
         <div className="container mt-4">
             <h2 className="text-center mb-4">Course Management</h2>
             <div className="table-responsive shadow-sm">
@@ -101,6 +105,7 @@ export default function AllCourses() {
                 </table>
             </div>
         </div>
+        </>
     );
 
 }
