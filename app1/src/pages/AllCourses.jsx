@@ -38,7 +38,7 @@ export default function AllCourses() {
         loadData();
     }, []);
 
-    
+   
 
 
     const handleDelete = async (id) => {
