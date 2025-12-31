@@ -21,7 +21,7 @@ import RegisterCourse from "./pages/RegisterCourse"
 import Mycourses from "./pages/Mycourses"
 import VideoDisplay from "./pages/VideoDisplay"
 import ChangePassword from "./pages/ChangePassword";
-
+import { Navigate } from "react-router";
 
 
 
@@ -42,20 +42,20 @@ function App() {
           <Route path="/about" element={<About /> } />
           <Route path="/register" element={<Register />} />
 
-          <Route path="/viewmore/:course_id" element={<ViewMore />} />  
+          <Route path="/viewmore/:course_id" element={LoginStatus ? <ViewMore /> : <Navigate to = '/' /> } />  
 
-          <Route path ="/registercourse/:course_id" element={<RegisterCourse/>}/>
-          <Route path="/mycourses" element={< Mycourses />}/>
-          <Route path="/video/:video_id" element={<VideoDisplay/>}/>
+          <Route path ="/registercourse/:course_id" element={LoginStatus ? <RegisterCourse/> : <Navigate to = '/' />}/>
+          <Route path="/mycourses" element={LoginStatus ? < Mycourses /> : <Navigate to = '/' />}/>
+          <Route path="/video/:video_id" element={LoginStatus ? <VideoDisplay/> : <Navigate to = '/' />}/>
 
-          <Route path='/GetAllVideos' element={<GetAllVideos/> } />
-          <Route path="/update-video/:course_id/:video_id" element={<UpdateVideos />} />
-          <Route path='/AddVideo' element={<AddVideo/>} />
-          <Route path='/ChangePassword' element={<ChangePassword/>} />
+          <Route path='/GetAllVideos' element={LoginStatus ? <GetAllVideos/> : <Navigate to = '/' />} />
+          <Route path="/update-video/:course_id/:video_id" element={LoginStatus ? <UpdateVideos /> : <Navigate to = '/' />} />
+          <Route path='/AddVideo' element={LoginStatus ? <AddVideo/> : <Navigate to = '/' />} />
+          <Route path='/ChangePassword' element={LoginStatus ? <ChangePassword/> : <Navigate to = '/' />} />
     
-          <Route path="/AddCourse" element={<AddCourse/>} />
-          <Route path="/AllCourses" element={<AllCourses/>} />
-          <Route path="/update-course/:id" element={<UpdateCourse />} />
+          <Route path="/AddCourse" element={LoginStatus ? <AddCourse/> : <Navigate to = '/' />}/>
+          <Route path="/AllCourses" element={LoginStatus ? <AllCourses/> : <Navigate to = '/' />} />
+          <Route path="/update-course/:id" element={LoginStatus ? <UpdateCourse />  : <Navigate to = '/' />} />
 
           </Routes>
         </LoginContext.Provider>
