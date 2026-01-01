@@ -2,6 +2,7 @@ const express = require("express")
 const crypto = require('crypto-js')
 const result = require("../utils/result")
 const pool = require("../db/pool")
+const { checkAuthorization } = require("../utils/auth")
 
 const router = express.Router()
 
@@ -80,5 +81,10 @@ router.get("/video/:video_id",(req, res) =>{
 })
 
 //get all students
-// router.get("")
+router.get("/getAllstudents",checkAuthorization,(req,res)=>{
+    const sql= `SELECT s.reg_no, s.name, s.email, c.course_name, s.mobile_no FROM students s INNER JOIN courses c ON s.course_id = c.course_id `
+    pool.query(sql,(error,data)=>{
+        res.send(result.createResult(error, data))
+    })
+})
 module.exports = router
