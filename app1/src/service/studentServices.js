@@ -42,3 +42,15 @@ export async function getVideo(video_id){
     console.log("response is",response);
     return response
 }
+
+export async function getAllStudents(){
+    console.log("getAllStudents() called");
+    const URL = config.BASE_URL+`/student/getAllStudents`
+    const token = sessionStorage.getItem("token")
+    const headers={
+        token
+    }
+    const response =await axios.get(URL,{headers})
+    console.log("response is",response);
+    return response
+}
