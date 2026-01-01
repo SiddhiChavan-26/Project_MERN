@@ -15,6 +15,7 @@ import AddVideo from "./pages/AddVideo"
 import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Register from "./pages/Register"
+import GetAllStudents from "./pages/GetAllStudents";
 
 import { LoginContext } from "./pages/LoginContext"
 import RegisterCourse from "./pages/RegisterCourse"
@@ -22,6 +23,7 @@ import Mycourses from "./pages/Mycourses"
 import VideoDisplay from "./pages/VideoDisplay"
 import ChangePassword from "./pages/ChangePassword";
 import { Navigate } from "react-router";
+
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
           <Route path ="/registercourse/:course_id" element={LoginStatus ? <RegisterCourse/> : <Navigate to = '/' />}/>
           <Route path="/mycourses" element={LoginStatus ? < Mycourses /> : <Navigate to = '/' />}/>
           <Route path="/video/:video_id" element={LoginStatus ? <VideoDisplay/> : <Navigate to = '/' />}/>
+          <Route path ="/getAllStudents" element={LoginStatus ? <GetAllStudents/> : <Navigate to = '/'/>}/>
 
           <Route path='/GetAllVideos' element={LoginStatus ? <GetAllVideos/> : <Navigate to = '/' />} />
           <Route path="/update-video/:course_id/:video_id" element={LoginStatus ? <UpdateVideos /> : <Navigate to = '/' />} />

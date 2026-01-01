@@ -72,7 +72,7 @@ function AdminNavbar() {
               </span>
               <ul className="dropdown-menu">
                 <li>
-                  <Link className="dropdown-item" to="/GetAllVideos">
+                  <Link className="dropdown-item" to="/getAllStudents">
                     Get All Students
                   </Link>
                 </li>
