@@ -4,6 +4,8 @@ import { useNavigate } from "react-router"
 import { getAllCourses } from '../service/commonServices'
 import NavbarSwitch from '../components/NavbarSwitch'
 
+
+
 export default function Home() {
     const navigate = useNavigate();
     const[course, setCourse] = useState([])
@@ -31,16 +33,12 @@ export default function Home() {
                     {course.map(e => {
                         return <div className="mt-3 col-4">
                             <div className="card" style={{ width: "20rem" }}>
-                                <div className="card-body">
-                                    <h5 className="card-title" style={{ height: "2rem" }}>{e.course_name}</h5>
-                                    <h6 className="card-subtitle mb-2 text-body-secondary">Starts on : {e.start_date}</h6>
-
-                                    {/* <h6 className="card-subtitle mb-2 text-body-secondary">Rs. {e.price}</h6> */}
-                                    <button className="btn btn-primary" onClick={() => navigate(`/viewmore/${e.course_id}`)}>View More</button>
-
-                                    
-
-                                </div>
+                                <div className="card-body text-center">   
+                                    <img src="/images/course.jpg" className="card-img-top" alt="Course" style={{ height: "180px", objectFit: "contain", padding: "15px"}} />  
+                                    <h5 className="card-title fw-bold">{e.course_name}</h5>
+                                    <p className="text-muted">Starts on : {new Date(e.start_date).toDateString()}</p>
+                                    <button className="btn btn-primary"onClick={() => navigate(`/viewmore/${e.course_id}`)}>View More</button>
+                                    </div>
                             </div>
                         </div>
                     })}
