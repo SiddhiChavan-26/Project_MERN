@@ -35,26 +35,10 @@ export default function Home() {
                             <div className="card" style={{ width: "20rem" }}>
                                 <div className="card-body text-center">   
                                     <img src="/images/course.jpg" className="card-img-top" alt="Course" style={{ height: "180px", objectFit: "contain", padding: "15px"}} />  
-
-
-                                    <h5 className="card-title fw-bold">
-    {e.course_name}
-  </h5>
-
-  <p className="text-muted">
-    Starts on : {new Date(e.start_date).toDateString()}
-  </p>
-
-  <button
-    className="btn btn-primary"
-    onClick={() => navigate(`/viewmore/${e.course_id}`)}
-  >
-    View More
-  </button>
-
-                                    
-
-                                </div>
+                                    <h5 className="card-title fw-bold">{e.course_name}</h5>
+                                    <p className="text-muted">Starts on : {new Date(e.start_date).toDateString()}</p>
+                                    <button className="btn btn-primary"onClick={() => navigate(`/viewmore/${e.course_id}`)}>View More</button>
+                                    </div>
                             </div>
                         </div>
                     })}
